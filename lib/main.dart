@@ -1,20 +1,14 @@
 import 'package:flutter/material.dart';
+import 'app.dart';
+import 'injection_container.dart';
+import 'core/config/app_config.dart';
 
-void main() {
-  runApp(const MainApp());
-}
-
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
-      ),
-    );
-  }
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  
+  await AppConfig.initialize();
+  
+  await initializeDependencies();
+  
+  runApp(const GymApp());
 }
