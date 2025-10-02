@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import '../constants/storage_keys.dart';
+import '../shared/storage_keys.dart';
 
 class TokenInterceptor extends Interceptor {
   final FlutterSecureStorage storage;

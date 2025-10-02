@@ -96,14 +96,14 @@ class RemoteAuthDataSourceImpl implements RemoteAuthDataSource {
           case 500:
             return const InternalServerException();
           default:
-            return ServerException(message: 'Error HTTP: $statusCode', code: statusCode);
+            return ServerException(message: 'HTTP error: $statusCode', code: statusCode);
         }
       case DioExceptionType.cancel:
         return const CancelledException();
       case DioExceptionType.connectionError:
         return const ConnectionException();
       default:
-        return NetworkException(message: 'Error de red: ${e.message}');
+        return NetworkException(message: 'Network error: ${e.message}');
     }
   }
 

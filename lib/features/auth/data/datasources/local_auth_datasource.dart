@@ -3,7 +3,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'dart:convert';
 import '../models/user_model.dart';
 import '../../../../core/interfaces/base_interfaces.dart';
-import '../../../../core/constants/storage_keys.dart';
+import '../../../../core/shared/storage_keys.dart';
 
 abstract class LocalAuthDataSource extends BaseDataSource {
   Future<void> saveToken(String token);
