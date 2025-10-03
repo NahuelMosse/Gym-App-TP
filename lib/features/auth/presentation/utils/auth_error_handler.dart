@@ -7,23 +7,23 @@ class AuthErrorHandler {
     }
     
     if (exception is ConnectionException) {
-      return 'Error de conexión. Verifica tu internet.';
+      return 'Connection error. Check your internet.';
     }
     
     if (exception is UnauthorizedException || exception is InvalidCredentialsException) {
-      return 'Email o contraseña incorrectos';
+      return 'Incorrect email or password';
     }
     
     if (exception is TokenExpiredException) {
-      return 'Sesión expirada. Inicia sesión nuevamente';
+      return 'Session expired. Please sign in again';
     }
     
     if (exception is ForbiddenException) {
-      return 'No tienes permisos para realizar esta acción';
+      return 'You do not have permission to perform this action';
     }
     
     if (exception is InternalServerException) {
-      return 'Error del servidor. Intenta más tarde.';
+      return 'Server error. Please try again later.';
     }
     
     if (exception is ServerException) {
@@ -42,6 +42,6 @@ class AuthErrorHandler {
       return exception.message;
     }
 
-    return 'Error inesperado. Intenta nuevamente.';
+    return 'Unexpected error. Please try again.';
   }
 }

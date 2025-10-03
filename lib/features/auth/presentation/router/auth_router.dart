@@ -16,7 +16,7 @@ class AuthRouter extends StatelessWidget {
       builder: (context, state) {
         return switch (state) {
           AuthLoadingState() => const LoadingPage(
-            message: 'Verificando autenticación...',
+            message: 'Verifying authentication...',
           ),
           AuthenticatedState() => const HomePage(),
           AuthErrorState() => LoginPage(

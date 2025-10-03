@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-/// Widget de loading reutilizable para estados de carga
+/// Reusable loading widget for loading states
 class LoadingPage extends StatelessWidget {
   const LoadingPage({
     super.key,
-    this.message = 'Cargando...',
+    this.message = 'Loading...',
   });
 
-  /// Mensaje personalizable para el loading
+  /// Customizable message for the loading screen
   final String message;
 
   @override

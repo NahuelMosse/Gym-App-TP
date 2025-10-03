@@ -7,7 +7,7 @@ class TokenInterceptor extends Interceptor {
   final FlutterSecureStorage storage;
   final Dio dio;
 
-  // Completer que indica un refresh en curso
+  // Completer that indicates a refresh in progress
   Completer<void>? _refreshCompleter;
 
   TokenInterceptor({required this.storage, required this.dio});

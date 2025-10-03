@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import '../state/auth_bloc.dart';
 import '../state/auth_event.dart';
 import '../state/auth_state.dart';
 import '../utils/auth_error_handler.dart';
 import '../../../../core/presentation/widgets/custom_text_field.dart';
 import '../../../../core/presentation/widgets/custom_button.dart';
+import '../../../../core/router/app_router.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({
@@ -13,7 +15,7 @@ class LoginPage extends StatefulWidget {
     this.errorMessage,
   });
 
-  /// Mensaje de error opcional para mostrar al usuario
+  /// Optional error message to display to the user
   final String? errorMessage;
 
   @override
@@ -60,8 +62,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               );
             } else if (state is AuthenticatedState) {
-              // Navegar a la pantalla principal
-              Navigator.of(context).pushReplacementNamed('/home');
+              context.go(AppRoutes.home);
             }
           },
           child: SingleChildScrollView(
@@ -70,7 +71,7 @@ class _LoginPageState extends State<LoginPage> {
               children: [
                 const SizedBox(height: 60),
                 
-                // Logo o título
+                // Logo or title
                 Container(
                   width: 100,
                   height: 100,
@@ -98,7 +99,7 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(height: 8),
                 
                 Text(
-                  'Inicia sesión para continuar',
+                  'Sign in to continue',
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                     color: Colors.grey[600],
                   ),
@@ -106,7 +107,7 @@ class _LoginPageState extends State<LoginPage> {
                 
                 const SizedBox(height: 24),
                 
-                // Mostrar mensaje de error si existe
+                // Show error message if exists
                 if (widget.errorMessage != null) ...[
                   Container(
                     width: double.infinity,
@@ -149,15 +150,15 @@ class _LoginPageState extends State<LoginPage> {
                       CustomTextField(
                         controller: _emailController,
                         label: 'Email',
-                        hintText: 'tu@email.com',
+                        hintText: 'your@email.com',
                         prefixIcon: Icons.email_outlined,
                         keyboardType: TextInputType.emailAddress,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Por favor ingresa tu email';
+                            return 'Please enter your email';
                           }
                           if (!RegExp(r'^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
-                            return 'Por favor ingresa un email válido';
+                            return 'Please enter a valid email';
                           }
                           return null;
                         },
@@ -167,8 +168,8 @@ class _LoginPageState extends State<LoginPage> {
                       
                       CustomTextField(
                         controller: _passwordController,
-                        label: 'Contraseña',
-                        hintText: 'Tu contraseña',
+                        label: 'Password',
+                        hintText: 'Your password',
                         prefixIcon: Icons.lock_outline,
                         obscureText: _obscurePassword,
                         suffixIcon: IconButton(
@@ -183,10 +184,10 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Por favor ingresa tu contraseña';
+                            return 'Please enter your password';
                           }
                           if (value.length < 6) {
-                            return 'La contraseña debe tener al menos 6 caracteres';
+                            return 'Password must be at least 6 characters';
                           }
                           return null;
                         },
@@ -202,7 +203,7 @@ class _LoginPageState extends State<LoginPage> {
                             // TODO: Implementar forgot password
                           },
                           child: Text(
-                            '¿Olvidaste tu contraseña?',
+                            'Forgot your password?',
                             style: TextStyle(
                               color: Theme.of(context).primaryColor,
                             ),
@@ -216,7 +217,7 @@ class _LoginPageState extends State<LoginPage> {
                       BlocBuilder<AuthBloc, AuthState>(
                         builder: (context, state) {
                           return CustomButton(
-                            text: 'Iniciar Sesión',
+                            text: 'Sign In',
                             onPressed: state is AuthLoadingState ? null : _submitLogin,
                             isLoading: state is AuthLoadingState,
                           );
@@ -230,15 +231,15 @@ class _LoginPageState extends State<LoginPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            '¿No tienes cuenta? ',
+                            "Don't have an account? ",
                             style: TextStyle(color: Colors.grey[600]),
                           ),
                           TextButton(
                             onPressed: () {
-                              // TODO: Navegar a registro
+                              // TODO: Navigate to register
                             },
                             child: Text(
-                              'Regístrate',
+                              'Sign Up',
                               style: TextStyle(
                                 color: Theme.of(context).primaryColor,
                                 fontWeight: FontWeight.w600,

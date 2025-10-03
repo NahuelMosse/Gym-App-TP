@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import '../../../features/auth/presentation/state/auth_bloc.dart';
 import '../../../features/auth/presentation/state/auth_event.dart';
+import '../../router/app_router.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -16,11 +18,12 @@ class HomePage extends StatelessWidget {
             icon: const Icon(Icons.logout),
             onPressed: () {
               context.read<AuthBloc>().add(LogoutRequestedEvent());
+              context.go(AppRoutes.login);
             },
           ),
         ],
       ),
-      body: const Center(
+      body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -31,7 +34,7 @@ class HomePage extends StatelessWidget {
             ),
             SizedBox(height: 24),
             Text(
-              '¡Bienvenido a Gym App!',
+              'Welcome to Gym App!',
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -39,10 +42,25 @@ class HomePage extends StatelessWidget {
             ),
             SizedBox(height: 16),
             Text(
-              'Aquí irá el contenido principal de tu app',
+              'Here will be the main content of your app',
               style: TextStyle(
                 fontSize: 16,
                 color: Colors.grey,
+              ),
+            ),
+            SizedBox(height: 32),
+            ElevatedButton.icon(
+              onPressed: () {
+                context.read<AuthBloc>().add(LogoutRequestedEvent());
+                context.go(AppRoutes.login);
+              },
+              icon: const Icon(Icons.login),
+              label: const Text('Back to Login'),
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 24,
+                  vertical: 12,
+                ),
               ),
             ),
           ],
