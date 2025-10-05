@@ -118,7 +118,7 @@ gym_app/
 │   │   └── core_injection.dart         # Core dependency injection setup
 │   │
 │   ├── features/                       # 🏗️ Feature Modules
-│   │   └── feature_name/              # � Generic Feature Structure
+│   │   └── feature_name/               # � Generic Feature Structure
 │   │       ├── data/                   # 💾 Data Layer Implementation
 │   │       │   ├── datasources/        # Data source implementations
 │   │       │   ├── models/             # Data models with JSON serialization
@@ -126,34 +126,34 @@ gym_app/
 │   │       ├── domain/                 # 🎯 Business Logic Layer
 │   │       │   ├── entities/           # Pure business objects
 │   │       │   ├── repositories/       # Repository contracts
-│   │       │   └── usecases/          # Business use cases
+│   │       │   └── usecases/           # Business use cases
 │   │       ├── presentation/           # 🎨 UI Layer
-│   │       │   ├── pages/             # Feature screens
-│   │       │   ├── widgets/           # Feature-specific widgets
-│   │       │   ├── state/             # State management (BLoC/Cubit)
-│   │       │   └── utils/             # Presentation utilities
+│   │       │   ├── pages/              # Feature screens
+│   │       │   ├── widgets/            # Feature-specific widgets
+│   │       │   ├── state/              # State management (BLoC/Cubit)
+│   │       │   └── utils/              # Presentation utilities
 │   │       └── feature_injection.dart  # Feature dependency injection
 │   │
 │   ├── injection_container.dart        # 🔗 Global DI Container
-│   ├── app.dart                       # 📱 App Widget Configuration
-│   └── main.dart                      # 🚀 Application Entry Point
+│   ├── app.dart                        # 📱 App Widget Configuration
+│   └── main.dart                       # 🚀 Application Entry Point
 │
-├── android/                           # 🤖 Android Platform Code
-├── ios/                              # 🍎 iOS Platform Code
-├── linux/                            # 🐧 Linux Platform Code
-├── macos/                            # 💻 macOS Platform Code
-├── web/                              # 🌐 Web Platform Code
-├── windows/                          # � Windows Platform Code
-├── build/                            # � Build Artifacts
-├── pubspec.yaml                      # 📦 Dependencies & Assets
-├── pubspec.lock                      # 🔒 Dependency Lock File
-├── analysis_options.yaml            # 📊 Dart Analysis Configuration
-├── .env.example                      # 🔧 Environment Template
-├── .env                             # 🔐 Development Environment (local)
-├── .env.prod                        # 🏭 Production Environment
-├── .env.qa                          # 🧪 QA Environment
-├── .gitignore                       # 📋 Git Ignore Rules
-└── README.md                         # 📖 Project Documentation
+├── android/                            # 🤖 Android Platform Code
+├── ios/                                # 🍎 iOS Platform Code
+├── linux/                              # 🐧 Linux Platform Code
+├── macos/                              # 💻 macOS Platform Code
+├── web/                                # 🌐 Web Platform Code
+├── windows/                            # � Windows Platform Code
+├── build/                              # � Build Artifacts
+├── pubspec.yaml                        # 📦 Dependencies & Assets
+├── pubspec.lock                        # 🔒 Dependency Lock File
+├── analysis_options.yaml               # 📊 Dart Analysis Configuration
+├── .env.example                        # 🔧 Environment Template
+├── .env                                # 🔐 Development Environment (local)
+├── .env.prod                           # 🏭 Production Environment
+├── .env.qa                             # 🧪 QA Environment
+├── .gitignore                          # 📋 Git Ignore Rules
+└── README.md                           # 📖 Project Documentation
 ```
 
 ### 🔍 Detailed Responsibilities
@@ -404,6 +404,62 @@ flutter build apk --release
 # Clean project
 flutter clean && flutter pub get
 ```
+
+## 🌐 Internationalization (i18n)
+
+This app supports multiple languages using Flutter's official internationalization system.
+
+### Supported Languages
+- 🇺🇸 **English** (en) - Default
+- 🇪🇸 **Spanish** (es)
+
+### Adding New Languages
+
+1. **Create new ARB file**:
+   ```bash
+   # Create lib/features/internationalization/translations/[locale].arb
+   # Example: lib/features/internationalization/translations/fr.arb for French
+   ```
+
+2. **Add translations**:
+   ```json
+   {
+     "@@locale": "fr",
+     "appName": "Gym App",
+     "signInToContinue": "Connectez-vous pour continuer",
+     // ... add all required keys
+   }
+   ```
+
+3. **Generate localization files**:
+   ```bash
+   flutter gen-l10n
+   ```
+
+### Using Translations in Code
+
+```dart
+@override
+Widget build(BuildContext context) {
+  final translations = Translations.of(context);
+  
+  return Text(translations.welcomeToGymApp);
+}
+```
+
+### Language Configuration Files
+
+- **ARB Files** (EDITABLE): `lib/features/internationalization/translations/*.arb` - Translation definitions
+- **Generated Files** (DO NOT EDIT): `lib/features/internationalization/generated/` - Auto-generated classes
+  - `translations.dart` - Main class (import this)
+  - `_en.dart`, `_es.dart` - Internal implementations (do not import)
+- **Configuration**: `l10n.yaml` - Generation settings
+
+### How Language Selection Works
+
+The app automatically detects the device's system language and uses the appropriate translations. If the device language is not supported, it falls back to English.
+
+Users can manually change the language using the language picker in the app bar (🌐 icon).
 
 ## 🤝 Contributing
 

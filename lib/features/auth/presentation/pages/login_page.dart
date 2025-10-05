@@ -8,6 +8,8 @@ import '../utils/auth_error_handler.dart';
 import '../../../../core/presentation/widgets/custom_text_field.dart';
 import '../../../../core/presentation/widgets/custom_button.dart';
 import '../../../../core/router/app_router.dart';
+import '../../../internationalization/generated/translations.dart';
+import '../../../internationalization/presentation/widgets/language_picker.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({
@@ -48,13 +50,22 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    final translations = Translations.of(context);
+    
     return Scaffold(
       backgroundColor: Colors.grey[50],
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        actions: const [
+          LanguagePicker(),
+        ],
+      ),
       body: SafeArea(
         child: BlocListener<AuthBloc, AuthState>(
           listener: (context, state) {
             if (state is AuthErrorState) {
-              final errorMessage = AuthErrorHandler.getErrorMessage(state.exception);
+              final errorMessage = AuthErrorHandler.getErrorMessage(state.exception, context);
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text(errorMessage),
@@ -89,7 +100,7 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(height: 32),
                 
                 Text(
-                  'Gym App',
+                  translations.appName,
                   style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                     fontWeight: FontWeight.bold,
                     color: Colors.grey[800],
@@ -99,7 +110,7 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(height: 8),
                 
                 Text(
-                  'Sign in to continue',
+                  translations.signInToContinue,
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                     color: Colors.grey[600],
                   ),
@@ -149,16 +160,16 @@ class _LoginPageState extends State<LoginPage> {
                     children: [
                       CustomTextField(
                         controller: _emailController,
-                        label: 'Email',
-                        hintText: 'your@email.com',
+                        label: translations.email,
+                        hintText: translations.emailHint,
                         prefixIcon: Icons.email_outlined,
                         keyboardType: TextInputType.emailAddress,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter your email';
+                            return translations.pleaseEnterEmail;
                           }
                           if (!RegExp(r'^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
-                            return 'Please enter a valid email';
+                            return translations.pleaseEnterValidEmail;
                           }
                           return null;
                         },
@@ -168,8 +179,8 @@ class _LoginPageState extends State<LoginPage> {
                       
                       CustomTextField(
                         controller: _passwordController,
-                        label: 'Password',
-                        hintText: 'Your password',
+                        label: translations.password,
+                        hintText: translations.passwordHint,
                         prefixIcon: Icons.lock_outline,
                         obscureText: _obscurePassword,
                         suffixIcon: IconButton(
@@ -184,10 +195,10 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter your password';
+                            return translations.pleaseEnterPassword;
                           }
                           if (value.length < 6) {
-                            return 'Password must be at least 6 characters';
+                            return translations.passwordMinLength;
                           }
                           return null;
                         },
@@ -203,7 +214,7 @@ class _LoginPageState extends State<LoginPage> {
                             // TODO: Implementar forgot password
                           },
                           child: Text(
-                            'Forgot your password?',
+                            translations.forgotPassword,
                             style: TextStyle(
                               color: Theme.of(context).primaryColor,
                             ),
@@ -217,7 +228,7 @@ class _LoginPageState extends State<LoginPage> {
                       BlocBuilder<AuthBloc, AuthState>(
                         builder: (context, state) {
                           return CustomButton(
-                            text: 'Sign In',
+                            text: translations.signIn,
                             onPressed: state is AuthLoadingState ? null : _submitLogin,
                             isLoading: state is AuthLoadingState,
                           );
@@ -231,7 +242,7 @@ class _LoginPageState extends State<LoginPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            "Don't have an account? ",
+                            "${translations.dontHaveAccount} ",
                             style: TextStyle(color: Colors.grey[600]),
                           ),
                           TextButton(
@@ -239,7 +250,7 @@ class _LoginPageState extends State<LoginPage> {
                               // TODO: Navigate to register
                             },
                             child: Text(
-                              'Sign Up',
+                              translations.signUp,
                               style: TextStyle(
                                 color: Theme.of(context).primaryColor,
                                 fontWeight: FontWeight.w600,

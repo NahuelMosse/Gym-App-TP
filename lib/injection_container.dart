@@ -1,6 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'core/core_injection.dart';
 import 'features/auth/auth_injection.dart';
+import 'features/internationalization/internationalization_injection.dart';
 
 final serviceLocator = GetIt.instance;
 
@@ -10,4 +11,5 @@ Future<void> initializeDependencies() async {
 
   // Features
   AuthInjection.init(serviceLocator);
+  InternationalizationInjection.init(serviceLocator);
 }

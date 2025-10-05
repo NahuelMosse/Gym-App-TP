@@ -4,18 +4,24 @@ import 'package:go_router/go_router.dart';
 import '../../../features/auth/presentation/state/auth_bloc.dart';
 import '../../../features/auth/presentation/state/auth_event.dart';
 import '../../router/app_router.dart';
+import '../../../features/internationalization/generated/translations.dart';
+import '../../../features/internationalization/presentation/widgets/language_picker.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final translations = Translations.of(context);
+    
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Gym App - Home'),
+        title: Text('${translations.appName} - ${translations.homeTitle}'),
         actions: [
+          const LanguagePicker(),
           IconButton(
             icon: const Icon(Icons.logout),
+            tooltip: translations.signOut,
             onPressed: () {
               context.read<AuthBloc>().add(LogoutRequestedEvent());
               context.go(AppRoutes.login);
@@ -34,7 +40,7 @@ class HomePage extends StatelessWidget {
             ),
             SizedBox(height: 24),
             Text(
-              'Welcome to Gym App!',
+              translations.welcomeToGymApp,
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -42,7 +48,7 @@ class HomePage extends StatelessWidget {
             ),
             SizedBox(height: 16),
             Text(
-              'Here will be the main content of your app',
+              translations.mainContentHere,
               style: TextStyle(
                 fontSize: 16,
                 color: Colors.grey,
@@ -55,7 +61,7 @@ class HomePage extends StatelessWidget {
                 context.go(AppRoutes.login);
               },
               icon: const Icon(Icons.login),
-              label: const Text('Back to Login'),
+              label: Text(translations.backToLogin),
               style: ElevatedButton.styleFrom(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 24,

@@ -1,37 +1,37 @@
+import 'package:flutter/material.dart';
 import '../../../../core/errors/exceptions.dart';
+import '../../../internationalization/generated/translations.dart';
+import '../../domain/exceptions/auth_exceptions.dart';
 
 class AuthErrorHandler {
-  static String getErrorMessage(Object exception) {
+  static String getErrorMessage(Object exception, [BuildContext? context]) {
+    final translations = context != null ? Translations.of(context) : null;
     if (exception is TimeoutException) {
-      return 'Tiempo de espera agotado. Intenta nuevamente.';
+      return translations?.connectionError ?? 'Connection timeout. Please try again.';
     }
     
-    if (exception is ConnectionException) {
-      return 'Connection error. Check your internet.';
+    if (exception is ConnectionException || exception is NetworkException) {
+      return translations?.connectionError ?? 'Connection error. Check your internet.';
     }
     
     if (exception is UnauthorizedException || exception is InvalidCredentialsException) {
-      return 'Incorrect email or password';
+      return translations?.incorrectCredentials ?? 'Incorrect email or password';
     }
     
     if (exception is TokenExpiredException) {
-      return 'Session expired. Please sign in again';
+      return translations?.sessionExpired ?? 'Session expired. Please sign in again';
     }
     
     if (exception is ForbiddenException) {
-      return 'You do not have permission to perform this action';
+      return translations?.noPermission ?? 'You do not have permission to perform this action';
     }
     
     if (exception is InternalServerException) {
-      return 'Server error. Please try again later.';
+      return translations?.serverError ?? 'Server error. Please try again later.';
     }
     
     if (exception is ServerException) {
-      return exception.message;
-    }
-    
-    if (exception is NetworkException) {
-      return exception.message;
+      return translations?.serverError ?? exception.message;
     }
     
     if (exception is CacheException) {
@@ -42,6 +42,6 @@ class AuthErrorHandler {
       return exception.message;
     }
 
-    return 'Unexpected error. Please try again.';
+    return translations?.unexpectedError ?? 'Unexpected error. Please try again.';
   }
 }
