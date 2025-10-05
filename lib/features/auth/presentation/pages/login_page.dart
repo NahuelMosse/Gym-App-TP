@@ -196,7 +196,7 @@ class _LoginPageState extends State<LoginPage> {
                         alignment: Alignment.centerRight,
                         child: TextButton(
                           onPressed: () {
-                            // TODO: Implementar forgot password
+                            // TODO: Implement forgot password
                           },
                           child: Text(
                             translations.forgotPassword,
