@@ -1,0 +1,38 @@
+{
+  "@@locale": "es",
+  "appName": "Gym App",
+  "signInToContinue": "Inicia sesión para continuar",
+  "email": "Correo electrónico",
+  "emailHint": "tu@email.com",
+  "password": "Contraseña",
+  "passwordHint": "Tu contraseña",
+  "signIn": "Iniciar Sesión",
+  "signUp": "Registrarse",
+  "signOut": "Cerrar Sesión",
+  "dontHaveAccount": "¿No tienes cuenta?",
+  "forgotPassword": "¿Olvidaste tu contraseña?",
+  "welcomeToGymApp": "¡Bienvenido a Gym App!",
+  "mainContentHere": "Aquí irá el contenido principal de tu app",
+  "backToLogin": "Volver al Login",
+  "homeTitle": "Inicio",
+  "loading": "Cargando...",
+  "verifyingAuth": "Verificando autenticación...",
+  
+  "changeLanguage": "Cambiar Idioma",
+  "languageChangedTo": "Idioma cambiado a {language}",
+  "languageLoadFailed": "Error al cargar la preferencia de idioma guardada",
+  "languageSaveFailed": "Error al guardar la preferencia de idioma",
+  
+  "pleaseEnterEmail": "Por favor ingresa tu email",
+  "pleaseEnterValidEmail": "Por favor ingresa un email válido",
+  "pleaseEnterPassword": "Por favor ingresa tu contraseña",
+  "passwordMinLength": "La contraseña debe tener al menos 6 caracteres",
+  
+  "connectionError": "Error de conexión. Verifica tu internet.",
+  "incorrectCredentials": "Email o contraseña incorrectos",
+  "sessionExpired": "Sesión expirada. Inicia sesión nuevamente",
+  "noPermission": "No tienes permisos para realizar esta acción",
+  "serverError": "Error del servidor. Intenta más tarde.",
+  "invalidServerResponse": "Respuesta inválida del servidor. Intenta nuevamente.",
+  "unexpectedError": "Error inesperado. Intenta nuevamente."
+}

@@ -1,0 +1,45 @@
+{
+  "@@locale": "en",
+  "appName": "Gym App",
+  "signInToContinue": "Sign in to continue",
+  "email": "Email",
+  "emailHint": "your@email.com",
+  "password": "Password",
+  "passwordHint": "Your password",
+  "signIn": "Sign In",
+  "signUp": "Sign Up",
+  "signOut": "Sign Out",
+  "dontHaveAccount": "Don't have an account?",
+  "forgotPassword": "Forgot your password?",
+  "welcomeToGymApp": "Welcome to Gym App!",
+  "mainContentHere": "Here will be the main content of your app",
+  "backToLogin": "Back to Login",
+  "homeTitle": "Home",
+  "loading": "Loading...",
+  "verifyingAuth": "Verifying authentication...",
+  
+  "changeLanguage": "Change Language",
+  "languageChangedTo": "Language changed to {language}",
+  "@languageChangedTo": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
+  "languageLoadFailed": "Failed to load saved language preference",
+  "languageSaveFailed": "Failed to save language preference",
+  
+  "pleaseEnterEmail": "Please enter your email",
+  "pleaseEnterValidEmail": "Please enter a valid email",
+  "pleaseEnterPassword": "Please enter your password",
+  "passwordMinLength": "Password must be at least 6 characters",
+  
+  "connectionError": "Connection error. Check your internet.",
+  "incorrectCredentials": "Incorrect email or password",
+  "sessionExpired": "Session expired. Please sign in again",
+  "noPermission": "You do not have permission to perform this action",
+  "serverError": "Server error. Please try again later.",
+  "invalidServerResponse": "Invalid server response. Please try again.",
+  "unexpectedError": "Unexpected error. Please try again."
+}
