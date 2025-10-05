@@ -28,7 +28,7 @@ class CoreInjection {
       responseBody: kDebugMode, // debug only
       logPrint: (object) {
         if (kDebugMode) { // debug only
-          print('[HTTP] $object');
+          debugPrint('[HTTP] $object');
         }
       },
     ));

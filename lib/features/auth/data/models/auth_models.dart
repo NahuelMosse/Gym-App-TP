@@ -1,5 +1,5 @@
-import 'package:gym_app/features/auth/data/models/user_model.dart';
-import 'package:gym_app/core/errors/exceptions.dart';
+import 'user_model.dart';
+import '../../../../core/errors/exceptions.dart';
 
 class LoginRequest {
   final String email;

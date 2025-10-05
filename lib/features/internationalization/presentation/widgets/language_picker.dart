@@ -6,12 +6,22 @@ import '../state/language_event.dart';
 import '../state/language_state.dart';
 import '../utils/language_error_handler.dart';
 
+class LanguageInfo {
+  final String displayName;
+  final String flagEmoji;
+
+  const LanguageInfo({
+    required this.displayName,
+    required this.flagEmoji,
+  });
+}
+
 class LanguagePicker extends StatelessWidget {
   const LanguagePicker({super.key});
 
-  static const Map<String, ({String displayName, String flagEmoji})> _languageInfo = {
-    'en': (displayName: 'English', flagEmoji: '🇺🇸'),
-    'es': (displayName: 'Español', flagEmoji: '🇪🇸'),
+  static final Map<Locale, LanguageInfo> _languageInfo = {
+    const Locale('en'): const LanguageInfo(displayName: 'English', flagEmoji: '🇺🇸'),
+    const Locale('es'): const LanguageInfo(displayName: 'Español', flagEmoji: '🇪🇸'),
   };
 
   @override
@@ -22,7 +32,7 @@ class LanguagePicker extends StatelessWidget {
       listener: (context, state) {
         if (state is LanguageLoadedState && state.locale != null) {
           final newTranslations = lookupTranslations(state.locale!);
-          final displayName = _languageInfo[state.locale!.languageCode]?.displayName ?? state.locale!.languageCode;
+          final displayName = _languageInfo[state.locale]?.displayName ?? state.locale!.languageCode;
           
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
@@ -54,7 +64,7 @@ class LanguagePicker extends StatelessWidget {
         },
         itemBuilder: (BuildContext context) {
           return Translations.supportedLocales.map((locale) {
-            final info = _languageInfo[locale.languageCode];
+            final info = _languageInfo[locale];
             final displayName = info?.displayName ?? locale.languageCode.toUpperCase();
             final flagEmoji = info?.flagEmoji ?? '🌐';
 
