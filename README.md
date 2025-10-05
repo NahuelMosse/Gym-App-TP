@@ -5,12 +5,14 @@ A Flutter application for gym workout tracking and routine planning
 ## 📋 Table of Contents
 
 - [🚀 Installation & Setup](#-installation--setup)
-- [🔧 Development Server Configuration](#-development-server-configuration)
-- [▶️ Running the Project](#️-running-the-project)
-- [🏗️ Architecture](#️-architecture)
+- [▶️ Running the Project](#-running-the-project)
+- [🏗️ Architecture](#-architecture)
 - [📁 Project Structure](#-project-structure)
 - [🔍 Component Definitions](#-component-definitions)
-- [💡 Practical Example](#-practical-example)
+- [💡 Practical Example](#-practical-example-user-login-flow)
+- [🛠️ Useful Commands](#-useful-commands)
+- [🌐 Internationalization (i18n)](#-internationalization-i18n)
+- [🤝 Contributing](#-contributing)
 
 ---
 
@@ -186,7 +188,7 @@ gym_app/
 
 ---
 
-## � Component Definitions
+## 🔍 Component Definitions
 
 ### 📊 **DataSource**
 **What it does**: Direct interface with external data sources (APIs, databases, local storage)
@@ -388,7 +390,7 @@ This flow demonstrates how each layer has a single responsibility and how data f
 
 ---
 
-## �🛠️ Useful Commands
+## 🛠️ Useful Commands
 
 ### Flutter
 ```bash
