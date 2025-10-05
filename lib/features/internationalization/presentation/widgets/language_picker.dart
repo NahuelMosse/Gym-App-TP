@@ -20,7 +20,7 @@ class LanguagePicker extends StatelessWidget {
     
     return BlocListener<LanguageBloc, LanguageState>(
       listener: (context, state) {
-        if (state is LanguageLoaded && state.locale != null) {
+        if (state is LanguageLoadedState && state.locale != null) {
           final newTranslations = lookupTranslations(state.locale!);
           final displayName = _languageInfo[state.locale!.languageCode]?.displayName ?? state.locale!.languageCode;
           
@@ -30,8 +30,8 @@ class LanguagePicker extends StatelessWidget {
               duration: const Duration(seconds: 2),
             ),
           );
-        } else if (state is LanguageError) {
-          final errorMessage = LanguageErrorHandler.getErrorMessage(
+        } else if (state is LanguageErrorState) {
+          final errorMessage = LanguageErrorStateHandler.getErrorMessage(
             state.exception,
             context,
           );

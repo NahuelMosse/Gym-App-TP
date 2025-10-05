@@ -5,6 +5,7 @@ import '../state/auth_bloc.dart';
 import '../state/auth_event.dart';
 import '../state/auth_state.dart';
 import '../utils/auth_error_handler.dart';
+import '../utils/auth_form_validators.dart';
 import '../../../../core/presentation/widgets/custom_text_field.dart';
 import '../../../../core/presentation/widgets/custom_button.dart';
 import '../../../../core/router/app_router.dart';
@@ -164,15 +165,7 @@ class _LoginPageState extends State<LoginPage> {
                         hintText: translations.emailHint,
                         prefixIcon: Icons.email_outlined,
                         keyboardType: TextInputType.emailAddress,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return translations.pleaseEnterEmail;
-                          }
-                          if (!RegExp(r'^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
-                            return translations.pleaseEnterValidEmail;
-                          }
-                          return null;
-                        },
+                        validator: AuthFormValidators.emailValidator(context),
                       ),
                       
                       const SizedBox(height: 24),
@@ -193,15 +186,7 @@ class _LoginPageState extends State<LoginPage> {
                             });
                           },
                         ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return translations.pleaseEnterPassword;
-                          }
-                          if (value.length < 6) {
-                            return translations.passwordMinLength;
-                          }
-                          return null;
-                        },
+                        validator: AuthFormValidators.passwordValidator(context),
                       ),
                       
                       const SizedBox(height: 16),

@@ -1,8 +1,7 @@
 import '../repositories/auth_repository.dart';
 import '../../../../core/entities/user.dart';
-import '../../../../core/errors/exceptions.dart';
 import '../../../../core/interfaces/base_interfaces.dart';
-import 'package:email_validator/email_validator.dart';
+import '../validators/auth_validators.dart';
 
 class LoginParams {
   final String email;
@@ -24,22 +23,8 @@ class LoginUseCase extends BaseUseCase<User, LoginParams> {
     final email = params.email;
     final password = params.password;
 
-    // Validations - throw domain exceptions
-    if (email.isEmpty) {
-      throw const BadRequestException(message: 'El email es requerido');
-    }
-    
-    if (password.isEmpty) {
-      throw const BadRequestException(message: 'La contraseña es requerida');
-    }
-
-    if (!EmailValidator.validate(email)) {
-      throw const BadRequestException(message: 'El email no es válido');
-    }
-
-    if (password.length < 6) {
-      throw const BadRequestException(message: 'La contraseña debe tener al menos 6 caracteres');
-    }
+    AuthValidators.validateEmail(email);
+    AuthValidators.validatePassword(password);
 
     return await repository.login(email: email, password: password);
   }

@@ -102,5 +102,9 @@ class TranslationsEn extends Translations {
   String get serverError => 'Server error. Please try again later.';
 
   @override
+  String get invalidServerResponse =>
+      'Invalid server response. Please try again.';
+
+  @override
   String get unexpectedError => 'Unexpected error. Please try again.';
 }

@@ -1,4 +1,5 @@
 import 'package:gym_app/features/auth/data/models/user_model.dart';
+import 'package:gym_app/core/errors/exceptions.dart';
 
 class LoginRequest {
   final String email;
@@ -29,10 +30,32 @@ class LoginResponse {
   });
 
   factory LoginResponse.fromJson(Map<String, dynamic> json) {
+    final accessToken = json['accessToken'] as String?;
+    final refreshToken = json['refreshToken'] as String?;
+    final userData = json['user'] as Map<String, dynamic>?;
+
+    if (accessToken == null || accessToken.isEmpty) {
+      throw const InvalidResponseException(
+        message: 'Access token is missing in server response',
+      );
+    }
+
+    if (refreshToken == null || refreshToken.isEmpty) {
+      throw const InvalidResponseException(
+        message: 'Refresh token is missing in server response',
+      );
+    }
+
+    if (userData == null || userData.isEmpty) {
+      throw const InvalidResponseException(
+        message: 'User data is missing in server response',
+      );
+    }
+
     return LoginResponse(
-      accessToken: json['accessToken'] as String? ?? '',
-      refreshToken: json['refreshToken'] as String? ?? '',
-      user: UserModel.fromJson(json['user'] as Map<String, dynamic>? ?? {}),
+      accessToken: accessToken,
+      refreshToken: refreshToken,
+      user: UserModel.fromJson(userData),
     );
   }
 }

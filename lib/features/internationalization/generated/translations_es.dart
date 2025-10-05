@@ -103,5 +103,9 @@ class TranslationsEs extends Translations {
   String get serverError => 'Error del servidor. Intenta más tarde.';
 
   @override
+  String get invalidServerResponse =>
+      'Respuesta inválida del servidor. Intenta nuevamente.';
+
+  @override
   String get unexpectedError => 'Error inesperado. Intenta nuevamente.';
 }

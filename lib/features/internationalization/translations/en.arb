@@ -40,5 +40,6 @@
   "sessionExpired": "Session expired. Please sign in again",
   "noPermission": "You do not have permission to perform this action",
   "serverError": "Server error. Please try again later.",
+  "invalidServerResponse": "Invalid server response. Please try again.",
   "unexpectedError": "Unexpected error. Please try again."
 }

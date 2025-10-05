@@ -3,7 +3,7 @@ import '../../../../core/errors/exceptions.dart';
 import '../../../internationalization/generated/translations.dart';
 import '../../domain/exceptions/language_exceptions.dart';
 
-class LanguageErrorHandler {
+class LanguageErrorStateHandler {
   static String getErrorMessage(Object exception, [BuildContext? context]) {
     final translations = context != null ? Translations.of(context) : null;
 

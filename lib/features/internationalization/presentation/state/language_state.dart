@@ -13,21 +13,21 @@ abstract class LanguageState extends Equatable {
   bool get stringify => true;
 }
 
-class LanguageInitial extends LanguageState {}
+class LanguageInitialState extends LanguageState {}
 
-class LanguageLoaded extends LanguageState {
+class LanguageLoadedState extends LanguageState {
   final Locale? locale; // null = system default
 
-  const LanguageLoaded({this.locale});
+  const LanguageLoadedState({this.locale});
 
   @override
   List<Object?> get props => [locale];
 }
 
-class LanguageError extends LanguageState {
+class LanguageErrorState extends LanguageState {
   final Object exception;
 
-  const LanguageError(this.exception);
+  const LanguageErrorState(this.exception);
 
   @override
   List<Object?> get props => [exception];

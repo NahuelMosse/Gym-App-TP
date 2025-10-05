@@ -11,7 +11,7 @@ class LanguageBloc extends Bloc<LanguageEvent, LanguageState> {
   LanguageBloc({
     required this.getCurrentLocaleUseCase,
     required this.changeLocaleUseCase,
-  }) : super(LanguageInitial()) {
+  }) : super(LanguageInitialState()) {
     on<LoadSavedLocaleEvent>(_onLoadSavedLocale);
     on<ChangeLocaleEvent>(_onChangeLocale);
   }
@@ -22,10 +22,10 @@ class LanguageBloc extends Bloc<LanguageEvent, LanguageState> {
   ) async {
     try {
       final locale = await getCurrentLocaleUseCase();
-      emit(LanguageLoaded(locale: locale));
+      emit(LanguageLoadedState(locale: locale));
     } catch (e) {
-      emit(LanguageError(e));
-      emit(const LanguageLoaded(locale: null));
+      emit(LanguageErrorState(e));
+      emit(const LanguageLoadedState(locale: null));
     }
   }
 
@@ -35,9 +35,9 @@ class LanguageBloc extends Bloc<LanguageEvent, LanguageState> {
   ) async {
     try {
       await changeLocaleUseCase(event.locale);
-      emit(LanguageLoaded(locale: event.locale));
+      emit(LanguageLoadedState(locale: event.locale));
     } catch (e) {
-      emit(LanguageError(e));
+      emit(LanguageErrorState(e));
     }
   }
 }

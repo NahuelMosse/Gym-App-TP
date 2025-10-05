@@ -6,6 +6,25 @@ import '../../domain/exceptions/auth_exceptions.dart';
 class AuthErrorHandler {
   static String getErrorMessage(Object exception, [BuildContext? context]) {
     final translations = context != null ? Translations.of(context) : null;
+    
+    // Validation exceptions
+    if (exception is EmptyEmailException) {
+      return translations?.pleaseEnterEmail ?? 'Please enter your email';
+    }
+    
+    if (exception is InvalidEmailException) {
+      return translations?.pleaseEnterValidEmail ?? 'Please enter a valid email';
+    }
+    
+    if (exception is EmptyPasswordException) {
+      return translations?.pleaseEnterPassword ?? 'Please enter your password';
+    }
+    
+    if (exception is ShortPasswordException) {
+      return translations?.passwordMinLength ?? 'Password must be at least 6 characters';
+    }
+    
+    // Network/Connection exceptions
     if (exception is TimeoutException) {
       return translations?.connectionError ?? 'Connection timeout. Please try again.';
     }
@@ -14,6 +33,7 @@ class AuthErrorHandler {
       return translations?.connectionError ?? 'Connection error. Check your internet.';
     }
     
+    // Auth exceptions
     if (exception is UnauthorizedException || exception is InvalidCredentialsException) {
       return translations?.incorrectCredentials ?? 'Incorrect email or password';
     }
@@ -22,10 +42,15 @@ class AuthErrorHandler {
       return translations?.sessionExpired ?? 'Session expired. Please sign in again';
     }
     
+    if (exception is InvalidResponseException) {
+      return translations?.invalidServerResponse ?? 'Invalid server response. Please try again.';
+    }
+    
     if (exception is ForbiddenException) {
       return translations?.noPermission ?? 'You do not have permission to perform this action';
     }
     
+    // Server exceptions
     if (exception is InternalServerException) {
       return translations?.serverError ?? 'Server error. Please try again later.';
     }
@@ -34,6 +59,7 @@ class AuthErrorHandler {
       return translations?.serverError ?? exception.message;
     }
     
+    // Storage exceptions
     if (exception is CacheException) {
       return exception.message;
     }

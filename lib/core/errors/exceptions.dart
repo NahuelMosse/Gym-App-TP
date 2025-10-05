@@ -53,6 +53,13 @@ class InternalServerException extends DomainException {
   const InternalServerException({super.message = 'Internal server error', super.code = 500});
 }
 
+class InvalidResponseException extends DomainException {
+  const InvalidResponseException({
+    super.message = 'Invalid server response',
+    super.code = 500,
+  });
+}
+
 class CacheException extends DomainException {
   const CacheException({required super.message, super.code});
 }

@@ -278,6 +278,12 @@ abstract class Translations {
   /// **'Server error. Please try again later.'**
   String get serverError;
 
+  /// No description provided for @invalidServerResponse.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid server response. Please try again.'**
+  String get invalidServerResponse;
+
   /// No description provided for @unexpectedError.
   ///
   /// In en, this message translates to:

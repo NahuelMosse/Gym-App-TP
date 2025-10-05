@@ -27,7 +27,7 @@ class GymApp extends StatelessWidget {
         builder: (context, languageState) {
           // Extract language from state
           Locale? currentLocale;
-          if (languageState is LanguageLoaded) {
+          if (languageState is LanguageLoadedState) {
             currentLocale = languageState.locale;
           }
 
