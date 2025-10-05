@@ -20,8 +20,8 @@ class LanguagePicker extends StatelessWidget {
   const LanguagePicker({super.key});
 
   static final Map<Locale, LanguageInfo> _languageInfo = {
-    const Locale('en'): const LanguageInfo(displayName: 'English', flagEmoji: '🇺🇸'),
-    const Locale('es'): const LanguageInfo(displayName: 'Español', flagEmoji: '🇪🇸'),
+    const Locale('en'): LanguageInfo(displayName: 'English', flagEmoji: '🇺🇸'),
+    const Locale('es'): LanguageInfo(displayName: 'Español', flagEmoji: '🇪🇸'),
   };
 
   @override
