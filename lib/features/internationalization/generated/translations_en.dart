@@ -15,6 +15,9 @@ class TranslationsEn extends Translations {
   String get signInToContinue => 'Sign in to continue';
 
   @override
+  String get signInSubtitle => 'Please enter your credentials to continue';
+
+  @override
   String get email => 'Email';
 
   @override
@@ -30,6 +33,9 @@ class TranslationsEn extends Translations {
   String get signIn => 'Sign In';
 
   @override
+  String get signInWithGoogle => 'Sign in with Google';
+
+  @override
   String get signUp => 'Sign Up';
 
   @override
@@ -37,6 +43,9 @@ class TranslationsEn extends Translations {
 
   @override
   String get dontHaveAccount => 'Don\'t have an account?';
+
+  @override
+  String get orLabel => 'or';
 
   @override
   String get forgotPassword => 'Forgot your password?';

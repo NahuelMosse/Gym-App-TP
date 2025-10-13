@@ -36,23 +36,19 @@ class HomePage extends StatelessWidget {
             Icon(
               Icons.fitness_center,
               size: 100,
-              color: Colors.blue,
+              color: Theme.of(context).colorScheme.primary,
             ),
             SizedBox(height: 24),
             Text(
               translations.welcomeToGymApp,
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
+              style: Theme.of(context).textTheme.headlineMedium,
             ),
             SizedBox(height: 16),
             Text(
               translations.mainContentHere,
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.grey,
-              ),
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyMedium
             ),
             SizedBox(height: 32),
             ElevatedButton.icon(

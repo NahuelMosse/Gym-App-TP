@@ -2,24 +2,47 @@ import 'package:dio/dio.dart';
 import '../models/auth_models.dart';
 import '../models/user_model.dart';
 import '../../../../core/interfaces/base_interfaces.dart';
-import '../../../../core/errors/exceptions.dart';
 
 abstract class RemoteAuthDataSource extends BaseDataSource {
   Future<LoginResponse> login(LoginRequest request);
+  Future<void> logout();
   Future<UserModel> getCurrentUser();
   Future<void> refreshToken(String refreshToken);
 }
 
 class RemoteAuthDataSourceImpl implements RemoteAuthDataSource {
   final Dio dio;
+  static const String baseUrl = 'https://your-api-url.com/api/v1';
 
-  RemoteAuthDataSourceImpl({required this.dio});
+  RemoteAuthDataSourceImpl({required this.dio}) {
+    // Configurar interceptores para el token
+    dio.interceptors.add(
+      InterceptorsWrapper(
+        onRequest: (options, handler) async {
+          // Aquí puedes agregar el token a todas las requests automáticamente
+          // final token = await getStoredToken();
+          // if (token != null) {
+          //   options.headers['Authorization'] = 'Bearer $token';
+          // }
+          handler.next(options);
+        },
+        onError: (error, handler) async {
+          // Manejar errores de autenticación
+          if (error.response?.statusCode == 401) {
+            // Token expirado, intentar refresh
+            // await refreshTokenLogic();
+          }
+          handler.next(error);
+        },
+      ),
+    );
+  }
 
   @override
   Future<LoginResponse> login(LoginRequest request) async {
     try {
       final response = await dio.post(
-        '/auth/login',
+        '$baseUrl/auth/login',
         data: request.toJson(),
       );
 
@@ -38,9 +61,18 @@ class RemoteAuthDataSourceImpl implements RemoteAuthDataSource {
   }
 
   @override
+  Future<void> logout() async {
+    try {
+      await dio.post('$baseUrl/auth/logout');
+    } on DioException catch (e) {
+      throw _handleDioError(e);
+    }
+  }
+
+  @override
   Future<UserModel> getCurrentUser() async {
     try {
-      final response = await dio.get('/auth/me');
+      final response = await dio.get('$baseUrl/auth/me');
       
       if (response.statusCode == 200) {
         return UserModel.fromJson(response.data);
@@ -60,7 +92,7 @@ class RemoteAuthDataSourceImpl implements RemoteAuthDataSource {
   Future<void> refreshToken(String refreshToken) async {
     try {
       final response = await dio.post(
-        '/auth/refresh',
+        '$baseUrl/auth/refresh',
         data: {'refresh_token': refreshToken},
       );
 
@@ -76,37 +108,40 @@ class RemoteAuthDataSourceImpl implements RemoteAuthDataSource {
     }
   }
 
-  DomainException _handleDioError(DioException e) {
+  Exception _handleDioError(DioException e) {
     switch (e.type) {
       case DioExceptionType.connectionTimeout:
       case DioExceptionType.sendTimeout:
       case DioExceptionType.receiveTimeout:
-        return const TimeoutException();
+        return Exception('Timeout de conexión');
       case DioExceptionType.badResponse:
         final statusCode = e.response?.statusCode;
         switch (statusCode) {
           case 400:
-            return const BadRequestException();
+            return Exception('Datos inválidos');
           case 401:
-            return const UnauthorizedException();
+            return Exception('Credenciales incorrectas');
           case 403:
-            return const ForbiddenException();
+            return Exception('Acceso denegado');
           case 404:
-            return const NotFoundException();
+            return Exception('Endpoint no encontrado');
           case 500:
-            return const InternalServerException();
+            return Exception('Error del servidor');
           default:
-            return ServerException(message: 'HTTP error: $statusCode', code: statusCode);
+            return Exception('Error HTTP: $statusCode');
         }
       case DioExceptionType.cancel:
-        return const CancelledException();
+        return Exception('Petición cancelada');
       case DioExceptionType.connectionError:
-        return const ConnectionException();
+        return Exception('Error de conexión');
       default:
-        return NetworkException(message: 'Network error: ${e.message}');
+        return Exception('Error desconocido: ${e.message}');
     }
   }
 
   @override
-  void dispose() {}
+  void dispose() {
+    // Dio no necesita limpieza específica en este caso
+    // pero podríamos cancelar requests pendientes si los tuviéramos
+  }
 }

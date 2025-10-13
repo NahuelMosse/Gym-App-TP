@@ -8,6 +8,7 @@ import 'features/internationalization/presentation/state/language_event.dart';
 import 'features/internationalization/presentation/state/language_state.dart';
 import 'core/router/app_router.dart';
 import 'features/internationalization/generated/translations.dart';
+import 'core/theme/app_theme.dart';
 
 class GymApp extends StatelessWidget {
   const GymApp({super.key});
@@ -37,12 +38,8 @@ class GymApp extends StatelessWidget {
             localizationsDelegates: Translations.localizationsDelegates,
             supportedLocales: Translations.supportedLocales,
             locale: currentLocale, // Bind to LanguageBloc state
-            theme: ThemeData(
-              primarySwatch: Colors.blue,
-              primaryColor: const Color(0xFF2196F3),
-              visualDensity: VisualDensity.adaptivePlatformDensity,
-            ),
-            routerConfig: AppRouter.router,
+            theme: AppTheme.darkTheme,
+            routerConfig: AppRouter.router(context.read<AuthBloc>()),
           );
         },
       ),

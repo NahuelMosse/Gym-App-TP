@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import '../../../../core/theme/app_theme.dart';
 
-class CustomTextField extends StatelessWidget {
+class AuthTextField extends StatelessWidget {
   final TextEditingController controller;
   final String label;
   final String? hintText;
@@ -9,11 +10,13 @@ class CustomTextField extends StatelessWidget {
   final bool obscureText;
   final TextInputType? keyboardType;
   final String? Function(String?)? validator;
+  final double? height;
 
-  const CustomTextField({
+  const AuthTextField({
     super.key,
     required this.controller,
     required this.label,
+    this.height = 56,
     this.hintText,
     this.prefixIcon,
     this.suffixIcon,
@@ -24,62 +27,47 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          label,
-          style: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w500,
-            color: Colors.black87,
-          ),
-        ),
-        const SizedBox(height: 8),
-        TextFormField(
+    return Builder(builder: (context) {
+      final cs = Theme.of(context).colorScheme;
+
+      return SizedBox(
+        height: height,
+        child: TextFormField(
           controller: controller,
           obscureText: obscureText,
           keyboardType: keyboardType,
           validator: validator,
           decoration: InputDecoration(
+            labelText: label,
+            floatingLabelBehavior: FloatingLabelBehavior.never,
             hintText: hintText,
-            hintStyle: TextStyle(color: Colors.grey[400]),
-            prefixIcon: prefixIcon != null
-                ? Icon(prefixIcon, color: Colors.grey[600])
-                : null,
+            hintStyle: Theme.of(context).extension<AppTextStyles>()?.inputHint,
+            prefixIcon: prefixIcon != null ? Icon(prefixIcon, color: Theme.of(context).extension<AppColors>()!.inputIcon) : null,
             suffixIcon: suffixIcon,
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(color: Colors.grey[300]!),
-            ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(color: Colors.grey[300]!),
+              borderSide: BorderSide.none,
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
               borderSide: BorderSide(
-                color: Theme.of(context).primaryColor,
+                color: cs.primary,
                 width: 2,
               ),
             ),
             errorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: const BorderSide(color: Colors.red),
+              borderSide: BorderSide(color: cs.error),
             ),
             focusedErrorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: const BorderSide(color: Colors.red, width: 2),
+              borderSide: BorderSide(color: cs.error, width: 2),
             ),
             filled: true,
-            fillColor: Colors.white,
-            contentPadding: const EdgeInsets.symmetric(
-              horizontal: 16,
-              vertical: 16,
-            ),
+            fillColor: cs.surfaceContainer,
           ),
         ),
-      ],
-    );
+      );
+    });
   }
 }

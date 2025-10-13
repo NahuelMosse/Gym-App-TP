@@ -1,8 +1,8 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import '../../features/auth/presentation/router/auth_router.dart';
 import '../../features/auth/presentation/state/auth_bloc.dart';
 import '../../features/auth/presentation/state/auth_state.dart';
+import 'notify_on_refresh_stream.dart';
 import '../presentation/page/home_page.dart';
 
 
@@ -19,10 +19,10 @@ class AppRoutes {
 
 /// GoRouter configuration
 class AppRouter {
-  static final GoRouter router = GoRouter(
+  static GoRouter router(AuthBloc authBloc) => GoRouter(
     initialLocation: AppRoutes.login,
+    refreshListenable: NotifyOnRefreshStream(authBloc.stream),
     redirect: (context, state) {
-      final authBloc = context.read<AuthBloc>();
       final isLoggedIn = authBloc.state is AuthenticatedState;
       final currentRoute = state.uri.toString();
       
@@ -30,8 +30,12 @@ class AppRouter {
       if (!isLoggedIn && AppRoutes.protectedRoutes.contains(currentRoute)) {
         return AppRoutes.login;
       }
-      
-      // Allow all other navigation
+
+      // If user is logged in and on the login page, send to home
+      if (isLoggedIn && currentRoute == AppRoutes.login) {
+        return AppRoutes.home;
+      }
+
       return null;
     },
     routes: [

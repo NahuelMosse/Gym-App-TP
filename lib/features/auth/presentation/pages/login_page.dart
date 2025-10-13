@@ -1,16 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import '../state/auth_bloc.dart';
 import '../state/auth_event.dart';
 import '../state/auth_state.dart';
-import '../utils/auth_error_handler.dart';
-import '../utils/auth_form_validators.dart';
 import '../../../../core/presentation/widgets/custom_text_field.dart';
 import '../../../../core/presentation/widgets/custom_button.dart';
-import '../../../../core/router/app_router.dart';
-import '../../../internationalization/generated/translations.dart';
-import '../../../internationalization/presentation/widgets/language_picker.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({
@@ -18,7 +12,7 @@ class LoginPage extends StatefulWidget {
     this.errorMessage,
   });
 
-  /// Optional error message to display to the user
+  /// Mensaje de error opcional para mostrar al usuario
   final String? errorMessage;
 
   @override
@@ -51,30 +45,21 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    final translations = Translations.of(context);
-    
     return Scaffold(
       backgroundColor: Colors.grey[50],
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        actions: const [
-          LanguagePicker(),
-        ],
-      ),
       body: SafeArea(
         child: BlocListener<AuthBloc, AuthState>(
           listener: (context, state) {
             if (state is AuthErrorState) {
-              final errorMessage = AuthErrorHandler.getErrorMessage(state.exception, context);
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text(errorMessage),
+                  content: Text(state.message),
                   backgroundColor: Colors.red,
                 ),
               );
             } else if (state is AuthenticatedState) {
-              context.go(AppRoutes.home);
+              // Navegar a la pantalla principal
+              Navigator.of(context).pushReplacementNamed('/home');
             }
           },
           child: SingleChildScrollView(
@@ -83,7 +68,7 @@ class _LoginPageState extends State<LoginPage> {
               children: [
                 const SizedBox(height: 60),
                 
-                // Logo or title
+                // Logo o título
                 Container(
                   width: 100,
                   height: 100,
@@ -101,7 +86,7 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(height: 32),
                 
                 Text(
-                  translations.appName,
+                  'Gym App',
                   style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                     fontWeight: FontWeight.bold,
                     color: Colors.grey[800],
@@ -111,7 +96,7 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(height: 8),
                 
                 Text(
-                  translations.signInToContinue,
+                  'Inicia sesión para continuar',
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                     color: Colors.grey[600],
                   ),
@@ -119,7 +104,7 @@ class _LoginPageState extends State<LoginPage> {
                 
                 const SizedBox(height: 24),
                 
-                // Show error message if exists
+                // Mostrar mensaje de error si existe
                 if (widget.errorMessage != null) ...[
                   Container(
                     width: double.infinity,
@@ -161,19 +146,27 @@ class _LoginPageState extends State<LoginPage> {
                     children: [
                       CustomTextField(
                         controller: _emailController,
-                        label: translations.email,
-                        hintText: translations.emailHint,
+                        label: 'Email',
+                        hintText: 'tu@email.com',
                         prefixIcon: Icons.email_outlined,
                         keyboardType: TextInputType.emailAddress,
-                        validator: AuthFormValidators.emailValidator(context),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Por favor ingresa tu email';
+                          }
+                          if (!RegExp(r'^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
+                            return 'Por favor ingresa un email válido';
+                          }
+                          return null;
+                        },
                       ),
                       
                       const SizedBox(height: 24),
                       
                       CustomTextField(
                         controller: _passwordController,
-                        label: translations.password,
-                        hintText: translations.passwordHint,
+                        label: 'Contraseña',
+                        hintText: 'Tu contraseña',
                         prefixIcon: Icons.lock_outline,
                         obscureText: _obscurePassword,
                         suffixIcon: IconButton(
@@ -186,7 +179,15 @@ class _LoginPageState extends State<LoginPage> {
                             });
                           },
                         ),
-                        validator: AuthFormValidators.passwordValidator(context),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Por favor ingresa tu contraseña';
+                          }
+                          if (value.length < 6) {
+                            return 'La contraseña debe tener al menos 6 caracteres';
+                          }
+                          return null;
+                        },
                       ),
                       
                       const SizedBox(height: 16),
@@ -196,10 +197,10 @@ class _LoginPageState extends State<LoginPage> {
                         alignment: Alignment.centerRight,
                         child: TextButton(
                           onPressed: () {
-                            // TODO: Implement forgot password
+                            // TODO: Implementar forgot password
                           },
                           child: Text(
-                            translations.forgotPassword,
+                            '¿Olvidaste tu contraseña?',
                             style: TextStyle(
                               color: Theme.of(context).primaryColor,
                             ),
@@ -213,7 +214,7 @@ class _LoginPageState extends State<LoginPage> {
                       BlocBuilder<AuthBloc, AuthState>(
                         builder: (context, state) {
                           return CustomButton(
-                            text: translations.signIn,
+                            text: 'Iniciar Sesión',
                             onPressed: state is AuthLoadingState ? null : _submitLogin,
                             isLoading: state is AuthLoadingState,
                           );
@@ -227,15 +228,15 @@ class _LoginPageState extends State<LoginPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            "${translations.dontHaveAccount} ",
+                            '¿No tienes cuenta? ',
                             style: TextStyle(color: Colors.grey[600]),
                           ),
                           TextButton(
                             onPressed: () {
-                              // TODO: Navigate to register
+                              // TODO: Navegar a registro
                             },
                             child: Text(
-                              translations.signUp,
+                              'Regístrate',
                               style: TextStyle(
                                 color: Theme.of(context).primaryColor,
                                 fontWeight: FontWeight.w600,
