@@ -110,6 +110,12 @@ abstract class Translations {
   /// **'Sign in to continue'**
   String get signInToContinue;
 
+  /// No description provided for @signInSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your credentials to continue'**
+  String get signInSubtitle;
+
   /// No description provided for @email.
   ///
   /// In en, this message translates to:
@@ -140,6 +146,12 @@ abstract class Translations {
   /// **'Sign In'**
   String get signIn;
 
+  /// No description provided for @signInWithGoogle.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in with Google'**
+  String get signInWithGoogle;
+
   /// No description provided for @signUp.
   ///
   /// In en, this message translates to:
@@ -157,6 +169,12 @@ abstract class Translations {
   /// In en, this message translates to:
   /// **'Don\'t have an account?'**
   String get dontHaveAccount;
+
+  /// No description provided for @orLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'or'**
+  String get orLabel;
 
   /// No description provided for @forgotPassword.
   ///

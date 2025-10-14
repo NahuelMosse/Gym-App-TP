@@ -1,9 +1,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'dart:convert';
 import '../models/user_model.dart';
 import '../../../../core/interfaces/base_interfaces.dart';
-import '../../../../core/shared/storage_keys.dart';
 
 abstract class LocalAuthDataSource extends BaseDataSource {
   Future<void> saveToken(String token);
@@ -12,48 +10,48 @@ abstract class LocalAuthDataSource extends BaseDataSource {
   Future<String?> getToken();
   Future<String?> getRefreshToken();
   Future<UserModel?> getUser();
+  Future<bool> isLoggedIn();
   Future<void> clearAuthData();
 }
 
 class LocalAuthDataSourceImpl implements LocalAuthDataSource {
   final SharedPreferences sharedPreferences;
-  final FlutterSecureStorage secureStorage;
 
+  static const String _tokenKey = 'auth_token';
+  static const String _refreshTokenKey = 'refresh_token';
+  static const String _userKey = 'user_data';
 
-  LocalAuthDataSourceImpl({
-    required this.sharedPreferences, 
-    required this.secureStorage,
-  });
+  LocalAuthDataSourceImpl({required this.sharedPreferences});
 
   @override
   Future<void> saveToken(String token) async {
-    await secureStorage.write(key: SecureStorageKeys.accessToken, value: token);
+    await sharedPreferences.setString(_tokenKey, token);
   }
 
   @override
   Future<void> saveRefreshToken(String refreshToken) async {
-    await secureStorage.write(key: SecureStorageKeys.refreshToken, value: refreshToken);
+    await sharedPreferences.setString(_refreshTokenKey, refreshToken);
   }
 
   @override
   Future<void> saveUser(UserModel user) async {
     final userJson = json.encode(user.toJson());
-    await sharedPreferences.setString(SharedPreferencesKeys.userData, userJson);
+    await sharedPreferences.setString(_userKey, userJson);
   }
 
   @override
   Future<String?> getToken() async {
-    return await secureStorage.read(key: SecureStorageKeys.accessToken);
+    return sharedPreferences.getString(_tokenKey);
   }
 
   @override
   Future<String?> getRefreshToken() async {
-    return await secureStorage.read(key: SecureStorageKeys.refreshToken);
+    return sharedPreferences.getString(_refreshTokenKey);
   }
 
   @override
   Future<UserModel?> getUser() async {
-    final userString = sharedPreferences.getString(SharedPreferencesKeys.userData);
+    final userString = sharedPreferences.getString(_userKey);
     if (userString != null) {
       final userMap = json.decode(userString) as Map<String, dynamic>;
       return UserModel.fromJson(userMap);
@@ -62,14 +60,23 @@ class LocalAuthDataSourceImpl implements LocalAuthDataSource {
   }
 
   @override
+  Future<bool> isLoggedIn() async {
+    final token = await getToken();
+    return token != null && token.isNotEmpty;
+  }
+
+  @override
   Future<void> clearAuthData() async {
     await Future.wait([
-      secureStorage.delete(key: SecureStorageKeys.accessToken),
-      secureStorage.delete(key: SecureStorageKeys.refreshToken),
-      sharedPreferences.remove(SharedPreferencesKeys.userData),
+      sharedPreferences.remove(_tokenKey),
+      sharedPreferences.remove(_refreshTokenKey),
+      sharedPreferences.remove(_userKey),
     ]);
   }
 
   @override
-  void dispose() {}
+  void dispose() {
+    // SharedPreferences no necesita limpieza específica
+    // pero podríamos limpiar datos en cache si los tuviéramos
+  }
 }

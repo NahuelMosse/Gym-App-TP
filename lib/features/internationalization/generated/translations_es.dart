@@ -15,6 +15,10 @@ class TranslationsEs extends Translations {
   String get signInToContinue => 'Inicia sesión para continuar';
 
   @override
+  String get signInSubtitle =>
+      'Por favor ingresa tus credenciales para continuar';
+
+  @override
   String get email => 'Correo electrónico';
 
   @override
@@ -30,6 +34,9 @@ class TranslationsEs extends Translations {
   String get signIn => 'Iniciar Sesión';
 
   @override
+  String get signInWithGoogle => 'Inicia sesión con Google';
+
+  @override
   String get signUp => 'Registrarse';
 
   @override
@@ -37,6 +44,9 @@ class TranslationsEs extends Translations {
 
   @override
   String get dontHaveAccount => '¿No tienes cuenta?';
+
+  @override
+  String get orLabel => 'o';
 
   @override
   String get forgotPassword => '¿Olvidaste tu contraseña?';

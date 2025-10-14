@@ -1,7 +1,8 @@
+import 'package:dartz/dartz.dart';
 import '../repositories/auth_repository.dart';
 import '../../../../core/entities/user.dart';
+import '../../../../core/errors/failures.dart';
 import '../../../../core/interfaces/base_interfaces.dart';
-import '../validators/auth_validators.dart';
 
 class LoginParams {
   final String email;
@@ -13,19 +14,36 @@ class LoginParams {
   });
 }
 
-class LoginUseCase extends BaseUseCase<User, LoginParams> {
+class LoginUseCase extends BaseUseCase<Either<Failure, User>, LoginParams> {
   final AuthRepository repository;
 
   LoginUseCase(this.repository);
 
   @override
-  Future<User> call(LoginParams params) async {
+  Future<Either<Failure, User>> call(LoginParams params) async {
     final email = params.email;
     final password = params.password;
+    // Validaciones básicas
+    if (email.isEmpty) {
+      return const Left(ValidationFailure(message: 'El email es requerido'));
+    }
+    
+    if (password.isEmpty) {
+      return const Left(ValidationFailure(message: 'La contraseña es requerida'));
+    }
 
-    AuthValidators.validateEmail(email);
-    AuthValidators.validatePassword(password);
+    if (!_isValidEmail(email)) {
+      return const Left(ValidationFailure(message: 'El email no es válido'));
+    }
+
+    if (password.length < 6) {
+      return const Left(ValidationFailure(message: 'La contraseña debe tener al menos 6 caracteres'));
+    }
 
     return await repository.login(email: email, password: password);
+  }
+
+  bool _isValidEmail(String email) {
+    return RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(email);
   }
 }
