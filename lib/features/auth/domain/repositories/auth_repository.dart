@@ -1,27 +1,28 @@
 import '../../../../core/entities/user.dart';
-import '../../../../core/errors/failures.dart';
 import '../../../../core/interfaces/base_interfaces.dart';
-import 'package:dartz/dartz.dart';
 
+/// AuthRepository now uses exceptions for error handling according to the
+/// project's domain-exception strategy. Methods return plain values and
+/// throw DomainException subclasses on error.
 abstract class AuthRepository extends BaseRepository {
-  Future<Either<Failure, User>> login({
+  Future<User> login({
     required String email,
     required String password,
   });
 
-  Future<Either<Failure, void>> logout();
+  Future<void> logout();
 
-  Future<Either<Failure, User?>> getCurrentUser();
+  Future<User?> getCurrentUser();
 
-  Future<Either<Failure, bool>> isLoggedIn();
+  Future<bool> isLoggedIn();
 
-  Future<Either<Failure, User>> register({
+  Future<User> register({
     required String email,
     required String password,
     required String name,
   });
 
-  Future<Either<Failure, void>> forgotPassword({
+  Future<void> forgotPassword({
     required String email,
   });
 }

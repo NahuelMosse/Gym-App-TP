@@ -140,8 +140,5 @@ class RemoteAuthDataSourceImpl implements RemoteAuthDataSource {
   }
 
   @override
-  void dispose() {
-    // Dio no necesita limpieza específica en este caso
-    // pero podríamos cancelar requests pendientes si los tuviéramos
-  }
+  void dispose() {}
 }
