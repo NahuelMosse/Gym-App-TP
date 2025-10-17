@@ -18,9 +18,8 @@ class SocialDivider extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 12.0),
           child: Text(label, style: TextStyle(
             color: AppColors.textSecondary,
-              fontSize: 12,
-            ),
-          ),
+            fontSize: 12,
+          )),
         ),
         Expanded(child: Divider(color: AppColors.mutedBorder, thickness: 1)),
       ],
