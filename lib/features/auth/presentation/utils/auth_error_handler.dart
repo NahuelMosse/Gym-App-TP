@@ -46,6 +46,10 @@ class AuthErrorHandler {
       return translations?.invalidServerResponse ?? 'Invalid server response. Please try again.';
     }
     
+    if (exception is ParseException) {
+      return translations?.invalidServerResponse ?? 'Error processing server data. Please try again.';
+    }
+    
     if (exception is ForbiddenException) {
       return translations?.noPermission ?? 'You do not have permission to perform this action';
     }

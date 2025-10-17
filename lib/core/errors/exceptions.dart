@@ -60,6 +60,10 @@ class InvalidResponseException extends DomainException {
   });
 }
 
+class ParseException extends DomainException {
+  const ParseException({super.message = 'Failed to parse response', super.code});
+}
+
 class CacheException extends DomainException {
   const CacheException({required super.message, super.code});
 }

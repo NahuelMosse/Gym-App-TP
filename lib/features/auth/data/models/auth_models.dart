@@ -1,4 +1,5 @@
 import '../models/user_model.dart';
+import '../../../../core/errors/exceptions.dart';
 
 class LoginRequest {
   final String email;
@@ -34,19 +35,31 @@ class LoginResponse {
     final userData = json['user'];
 
     if (accessToken == null) {
-      throw Exception('accessToken is required but was null. JSON: $json');
+      throw const ParseException(
+        message: 'accessToken is required but was null',
+      );
     }
     if (refreshToken == null) {
-      throw Exception('refreshToken is required but was null. JSON: $json');
+      throw const ParseException(
+        message: 'refreshToken is required but was null',
+      );
     }
     if (userData == null) {
-      throw Exception('user data is required but was null. JSON: $json');
+      throw const ParseException(
+        message: 'user data is required but was null',
+      );
     }
 
-    return LoginResponse(
-      accessToken: accessToken as String,
-      refreshToken: refreshToken as String,
-      user: UserModel.fromJson(userData as Map<String, dynamic>),
-    );
+    try {
+      return LoginResponse(
+        accessToken: accessToken as String,
+        refreshToken: refreshToken as String,
+        user: UserModel.fromJson(userData as Map<String, dynamic>),
+      );
+    } catch (e) {
+      throw ParseException(
+        message: 'Failed to parse LoginResponse: ${e.toString()}',
+      );
+    }
   }
 }

@@ -39,6 +39,7 @@ DomainException mapExceptionToDomain(Object e) {
 
   if (e is SocketException) return const ConnectionException();
   if (e is TimeoutException) return const TimeoutException();
+  if (e is FormatException) return const ParseException(message: 'Invalid data format');
 
   if (e is Exception) {
     final s = e.toString().toLowerCase();
@@ -50,6 +51,9 @@ DomainException mapExceptionToDomain(Object e) {
     }
     if (s.contains('servidor') || s.contains('500') || s.contains('error http') || s.contains('internal server error')) {
       return const InternalServerException();
+    }
+    if (s.contains('parse') || s.contains('format') || s.contains('json') || s.contains('required but was null')) {
+      return const ParseException(message: 'Data parsing error');
     }
   }
 
