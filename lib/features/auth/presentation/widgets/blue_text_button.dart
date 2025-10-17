@@ -14,8 +14,6 @@ class BlueTextButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     return TextButton(
       style: ButtonStyle(
         padding: WidgetStateProperty.all(const EdgeInsets.symmetric(horizontal: 0, vertical: 4)),
@@ -23,11 +21,10 @@ class BlueTextButton extends StatelessWidget {
         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         foregroundColor: WidgetStateProperty.resolveWith((states) {
           if (states.contains(WidgetState.pressed)) {
-            return theme.extension<AppColors>()!.primaryBright;
+            return AppColors.primaryBright;
           }
-          return theme.colorScheme.primary;
+          return AppColors.primary;
         }),
-        overlayColor: WidgetStateProperty.all(Colors.transparent),
         splashFactory: NoSplash.splashFactory,
       ),
       onPressed: onPressed,

@@ -27,47 +27,64 @@ class AuthTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Builder(builder: (context) {
-      final cs = Theme.of(context).colorScheme;
-
-      return SizedBox(
-        height: height,
-        child: TextFormField(
-          controller: controller,
-          obscureText: obscureText,
-          keyboardType: keyboardType,
-          validator: validator,
-          decoration: InputDecoration(
-            labelText: label,
-            floatingLabelBehavior: FloatingLabelBehavior.never,
-            hintText: hintText,
-            hintStyle: Theme.of(context).extension<AppTextStyles>()?.inputHint,
-            prefixIcon: prefixIcon != null ? Icon(prefixIcon, color: Theme.of(context).extension<AppColors>()!.inputIcon) : null,
-            suffixIcon: suffixIcon,
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide.none,
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(
-                color: cs.primary,
-                width: 2,
-              ),
-            ),
-            errorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(color: cs.error),
-            ),
-            focusedErrorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(color: cs.error, width: 2),
-            ),
-            filled: true,
-            fillColor: cs.surfaceContainer,
+    return TextFormField(
+      controller: controller,
+      obscureText: obscureText,
+      keyboardType: keyboardType,
+      validator: validator,
+      style: const TextStyle(
+        color: AppColors.textPrimary,
+      ),
+      decoration: InputDecoration(
+        labelText: label,
+        labelStyle: const TextStyle(
+          color: AppColors.textSecondary,
+        ),
+        floatingLabelBehavior: FloatingLabelBehavior.never,
+        hintText: hintText,
+        hintStyle: const TextStyle(
+          color: AppColors.textSecondary,
+        ),
+        contentPadding: EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: height != null ? (height! - 24) / 2 : 16,
+        ),
+        isDense: false,
+        prefixIcon: prefixIcon != null 
+          ? Icon(prefixIcon, color: AppColors.inputIcon) 
+          : null,
+        suffixIcon: suffixIcon,
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: const BorderSide(
+            color: AppColors.inputBorder,
+            width: 1,
           ),
         ),
-      );
-    });
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: const BorderSide(
+            color: AppColors.primary,
+            width: 2,
+          ),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: const BorderSide(
+            color: AppColors.error,
+            width: 1,
+          ),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: const BorderSide(
+            color: AppColors.error, 
+            width: 2,
+          ),
+        ),
+        filled: true,
+        fillColor: AppColors.surface,
+      ),
+    );
   }
 }

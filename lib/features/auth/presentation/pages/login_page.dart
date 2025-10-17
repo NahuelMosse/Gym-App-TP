@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/presentation/widgets/app_logo.dart';
+import '../../../../core/theme/app_theme.dart';
+import '../../../internationalization/generated/translations.dart';
 import '../../domain/validators/auth_validators.dart';
 import '../state/auth_bloc.dart';
 import '../state/auth_event.dart';
@@ -11,6 +13,7 @@ import '../widgets/auth_error_banner.dart';
 import '../widgets/auth_text_field.dart';
 import '../widgets/blue_text_button.dart';
 import '../widgets/register_row.dart';
+import '../widgets/signin_with_button.dart';
 import '../widgets/social_divider.dart';
 
 class LoginPage extends StatefulWidget {
@@ -51,8 +54,9 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    final translations = Translations.of(context);
+    
     return Scaffold(
-      backgroundColor: Colors.grey[50],
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(24.0),
@@ -60,46 +64,40 @@ class _LoginPageState extends State<LoginPage> {
             children: [
               const SizedBox(height: 60),
               
-              AppLogo(size: 100),
+              AppLogo(size: 80),
               
-              const SizedBox(height: 32),
+              const SizedBox(height: 24),
               
               Text(
-                'Gym App',
+                translations.signInToContinue,
                 style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                   fontWeight: FontWeight.bold,
-                  color: Colors.grey[800],
+                  color: AppColors.textPrimary,
                 ),
               ),
               
-              const SizedBox(height: 8),
-              
               Text(
-                'Inicia sesión para continuar',
+                translations.signInToContinue,
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                  color: Colors.grey[600],
+                  color: AppColors.textSecondary,
                 ),
               ),
               
               const SizedBox(height: 24),
               
-              // Mostrar mensaje de error si existe
               if (widget.errorMessage != null) ...[
                 AuthErrorBanner(message: widget.errorMessage!),
                 const SizedBox(height: 24),
               ],
               
-              const SizedBox(height: 24),
-              
-              // Formulario
               Form(
                 key: _formKey,
                 child: Column(
                   children: [
                     AuthTextField(
                       controller: _emailController,
-                      label: 'Correo Electrónico',
-                      hintText: 'Tu email',
+                      label: translations.email,
+                      hintText: translations.email,
                       prefixIcon: Icons.email_outlined,
                       keyboardType: TextInputType.emailAddress,
                       validator: (value) {
@@ -112,12 +110,12 @@ class _LoginPageState extends State<LoginPage> {
                       },
                     ),
                     
-                    const SizedBox(height: 24),
+                    const SizedBox(height: 12),
 
                     AuthTextField(
                       controller: _passwordController,
-                      label: 'Contraseña',
-                      hintText: 'Tu contraseña',
+                      label: translations.password,
+                      hintText: translations.password,
                       prefixIcon: Icons.lock_outline,
                       obscureText: _obscurePassword,
                       suffixIcon: IconButton(
@@ -139,27 +137,24 @@ class _LoginPageState extends State<LoginPage> {
                         }
                       },
                     ),
-
-                    const SizedBox(height: 16),
                     
-                    // Forgot password
                     Align(
                       alignment: Alignment.centerRight,
                       child: BlueTextButton(
-                        label: '¿Olvidaste tu contraseña?',
+                        label: translations.forgotPassword,
                         onPressed: () {
                           // TODO: Implementar forgot password
                         },
                       ),
                     ),
                     
-                    const SizedBox(height: 32),
+                    const SizedBox(height: 24),
                     
                     // Login button
                     BlocBuilder<AuthBloc, AuthState>(
                       builder: (context, state) {
                         return AuthButton(
-                          text: 'Iniciar Sesión',
+                          text: translations.signIn,
                           isLoading: state is AuthLoadingState,
                           onPressed: _submitLogin,
                         );
@@ -171,10 +166,20 @@ class _LoginPageState extends State<LoginPage> {
                     SocialDivider(),
 
                     const SizedBox(height: 24),
+
+                    SignInWithButton(
+                      label: translations.signInWithGoogle,
+                      logo: 'assets/google_logo.png',
+                      onPressed: () {
+                        // TODO: Navegar a registro con google
+                      },
+                    ),
+
+                    const SizedBox(height: 12),
                     
                     RegisterRow(
-                      prompt: '¿No tienes una cuenta?',
-                      actionLabel: 'Regístrate',
+                      prompt: translations.dontHaveAccount,
+                      actionLabel: translations.signUp,
                       onPressed: () {
                         // TODO: Navegar a registro
                       },

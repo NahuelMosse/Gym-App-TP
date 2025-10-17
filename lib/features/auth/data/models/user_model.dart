@@ -16,12 +16,34 @@ class UserModel {
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
+    final id = json['id'];
+    final email = json['email'];
+    final name = json['name'];
+    final updatedAt = json['updated_at'];
+    final createdAt = json['created_at'];
+
+    if (id == null) {
+      throw Exception('User id is required but was null. JSON: $json');
+    }
+    if (email == null) {
+      throw Exception('User email is required but was null. JSON: $json');
+    }
+    if (name == null) {
+      throw Exception('User name is required but was null. JSON: $json');
+    }
+    if (updatedAt == null) {
+      throw Exception('User updated_at is required but was null. JSON: $json');
+    }
+    if (createdAt == null) {
+      throw Exception('User created_at is required but was null. JSON: $json');
+    }
+
     return UserModel(
-      id: json['id'] as String,
-      email: json['email'] as String,
-      name: json['name'] as String,
-      updatedAt: DateTime.parse(json['updated_at'] as String),
-      createdAt: DateTime.parse(json['created_at'] as String),
+      id: id as String,
+      email: email as String,
+      name: name as String,
+      updatedAt: DateTime.parse(updatedAt as String),
+      createdAt: DateTime.parse(createdAt as String),
     );
   }
 

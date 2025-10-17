@@ -11,21 +11,18 @@ class SocialDivider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final appColors = theme.extension<AppColors>();
-    final color = appColors?.mutedBorder;
-    final textStyle = theme.textTheme.bodySmall?.copyWith(
-      color: color
-    );
-
     return Row(
       children: [
-        Expanded(child: Divider(color: color, thickness: 1)),
+        Expanded(child: Divider(color: AppColors.mutedBorder, thickness: 1)),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12.0),
-          child: Text(label, style: textStyle),
+          child: Text(label, style: TextStyle(
+            color: AppColors.textSecondary,
+              fontSize: 12,
+            ),
+          ),
         ),
-        Expanded(child: Divider(color: color, thickness: 1)),
+        Expanded(child: Divider(color: AppColors.mutedBorder, thickness: 1)),
       ],
     );
   }

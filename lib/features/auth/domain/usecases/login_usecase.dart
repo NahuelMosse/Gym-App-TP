@@ -22,7 +22,7 @@ class LoginUseCase extends BaseUseCase<User, LoginParams> {
   Future<User> call(LoginParams params) async {
     final email = params.email;
     final password = params.password;
-    // Validaciones básicas
+
     if (email.isEmpty) {
       throw const BadRequestException(message: 'El email es requerido');
     }

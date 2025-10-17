@@ -8,7 +8,7 @@
   "password": "Password",
   "passwordHint": "Your password",
   "signIn": "Sign In",
-  "signInWithGoogle": "Sign in with Google",
+  "signInWithGoogle": "Continue with Google",
   "signUp": "Sign Up",
   "signOut": "Sign Out",
   "dontHaveAccount": "Don't have an account?",

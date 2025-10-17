@@ -33,7 +33,7 @@ class TranslationsEn extends Translations {
   String get signIn => 'Sign In';
 
   @override
-  String get signInWithGoogle => 'Sign in with Google';
+  String get signInWithGoogle => 'Continue with Google';
 
   @override
   String get signUp => 'Sign Up';

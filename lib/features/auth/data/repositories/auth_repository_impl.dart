@@ -6,7 +6,6 @@ import '../../domain/exceptions/auth_exceptions.dart';
 import '../datasources/local_auth_datasource.dart';
 import '../datasources/remote_auth_datasource.dart';
 import '../models/auth_models.dart';
-import '../models/user_model.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final RemoteAuthDataSource remoteDataSource;
@@ -27,18 +26,13 @@ class AuthRepositoryImpl implements AuthRepository {
         LoginRequest(email: email, password: password),
       );
 
-      // Guardar tokens y usuario localmente
-      await localDataSource.saveToken(loginResponse.token);
+      await localDataSource.saveToken(loginResponse.accessToken);
       await localDataSource.saveRefreshToken(loginResponse.refreshToken);
 
-      // Convertir y guardar el usuario
-      final userModel = UserModel.fromJson(loginResponse.user);
-      await localDataSource.saveUser(userModel);
+      await localDataSource.saveUser(loginResponse.user);
 
-      // Retornar la entidad User
-      return userModel.toEntity();
+      return loginResponse.user.toEntity();
     } catch (e) {
-      // Mapear cualquier excepción a DomainException y relanzar
       throw mapExceptionToDomain(e);
     }
   }
@@ -46,13 +40,10 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<void> logout() async {
     try {
-      // Intentar cerrar sesión en el servidor
       await remoteDataSource.logout();
 
-      // Limpiar datos locales
       await localDataSource.clearAuthData();
     } catch (e) {
-      // Aunque falle el logout remoto, limpiamos datos locales y relanzamos como DomainException
       await localDataSource.clearAuthData();
       throw mapExceptionToDomain(e);
     }
@@ -61,20 +52,17 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<User?> getCurrentUser() async {
     try {
-      // Primero intentar obtener usuario local
       final localUser = await localDataSource.getUser();
 
       if (localUser != null) {
         return localUser.toEntity();
       }
 
-      // Si no hay usuario local, verificar si hay token
       final token = await localDataSource.getToken();
       if (token == null) {
         return null;
       }
 
-      // Intentar obtener usuario del servidor
       final remoteUser = await remoteDataSource.getCurrentUser();
       await localDataSource.saveUser(remoteUser);
 
@@ -82,7 +70,6 @@ class AuthRepositoryImpl implements AuthRepository {
     } catch (e) {
       final domainEx = mapExceptionToDomain(e);
       if (domainEx is UnauthorizedException || domainEx is TokenExpiredException) {
-        // Token inválido/expirado → limpiar datos locales y devolver null
         await localDataSource.clearAuthData();
         return null;
       }
@@ -120,9 +107,7 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   void dispose() {
-    // Limpiar recursos del repositorio
     remoteDataSource.dispose();
     localDataSource.dispose();
-    // No llamamos super.dispose() porque BaseRepository.dispose() está vacío
   }
 }
