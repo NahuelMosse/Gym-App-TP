@@ -55,19 +55,3 @@ DomainException mapExceptionToDomain(Object e) {
 
   return const ServerException(message: 'Error inesperado');
 }
-
-/// Maps domain exceptions to user-friendly messages
-String mapExceptionToMessage(DomainException e) {
-  if (e is NetworkException) return e.message;
-  if (e is TimeoutException) return 'Tiempo de espera agotado. Intenta nuevamente.';
-  if (e is ConnectionException) return 'Error de conexión. Verifica tu internet.';
-  if (e is ServerException) return e.message;
-  if (e is BadRequestException) return 'Datos inválidos enviados';
-  if (e is UnauthorizedException || e is InvalidResponseException) return 'Email o contraseña incorrectos';
-  if (e is ForbiddenException) return 'No tienes permisos para realizar esta acción';
-  if (e is NotFoundException) return 'Recurso no encontrado';
-  if (e is InternalServerException) return 'Error del servidor. Intenta más tarde.';
-  if (e is CancelledException) return 'Operación cancelada';
-  if (e is CacheException || e is StorageException) return e.message;
-  return 'Error inesperado';
-}

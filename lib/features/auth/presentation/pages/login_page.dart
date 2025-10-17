@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/presentation/widgets/app_logo.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../internationalization/generated/translations.dart';
+import '../../../internationalization/presentation/widgets/language_picker.dart';
 import '../../domain/validators/auth_validators.dart';
 import '../state/auth_bloc.dart';
 import '../state/auth_event.dart';
@@ -57,24 +58,29 @@ class _LoginPageState extends State<LoginPage> {
     final translations = Translations.of(context);
     
     return Scaffold(
+      appBar: AppBar(
+        actions: [
+          const LanguagePicker()
+        ],
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(24.0),
           child: Column(
-            children: [
-              const SizedBox(height: 60),
-              
+            children: [    
               AppLogo(size: 80),
               
               const SizedBox(height: 24),
               
               Text(
-                translations.signInToContinue,
+                translations.appName,
                 style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                   fontWeight: FontWeight.bold,
                   color: AppColors.textPrimary,
                 ),
               ),
+
+              const SizedBox(height: 24),
               
               Text(
                 translations.signInToContinue,
@@ -83,7 +89,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               
-              const SizedBox(height: 24),
+              const SizedBox(height: 12),
               
               if (widget.errorMessage != null) ...[
                 AuthErrorBanner(message: widget.errorMessage!),

@@ -4,7 +4,6 @@ import '../../domain/usecases/login_usecase.dart';
 import '../../domain/usecases/logout_usecase.dart';
 import '../../domain/usecases/get_current_user_usecase.dart';
 import '../../../../core/interfaces/base_interfaces.dart';
-import '../../../../core/errors/exception_mapper.dart';
 import '../../../../core/errors/exceptions.dart';
 import '../../domain/exceptions/auth_exceptions.dart';
 import 'auth_event.dart';
@@ -38,9 +37,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         emit(UnauthenticatedState());
       }
     } catch (e) {
-      final domainEx = mapExceptionToDomain(e);
-      // If token invalid/expired, ensure unauthenticated. Otherwise still unauthenticated.
-      if (domainEx is UnauthorizedException || domainEx is TokenExpiredException) {
+      if (e is UnauthorizedException || e is TokenExpiredException) {
         emit(UnauthenticatedState());
       } else {
         emit(UnauthenticatedState());
@@ -58,9 +55,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       ));
       emit(AuthenticatedState(user));
     } catch (e) {
-      final domainEx = mapExceptionToDomain(e);
-      final message = mapExceptionToMessage(domainEx);
-      emit(AuthErrorState(message));
+      emit(AuthErrorState(e));
     }
   }
 
