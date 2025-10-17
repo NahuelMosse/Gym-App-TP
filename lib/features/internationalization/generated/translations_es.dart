@@ -34,7 +34,7 @@ class TranslationsEs extends Translations {
   String get signIn => 'Iniciar Sesión';
 
   @override
-  String get signInWithGoogle => 'Inicia sesión con Google';
+  String get signInWithGoogle => 'Continuar con Google';
 
   @override
   String get signUp => 'Registrarse';
@@ -43,7 +43,7 @@ class TranslationsEs extends Translations {
   String get signOut => 'Cerrar Sesión';
 
   @override
-  String get dontHaveAccount => '¿No tienes cuenta?';
+  String get dontHaveAccount => '¿No tienes una cuenta?';
 
   @override
   String get orLabel => 'o';

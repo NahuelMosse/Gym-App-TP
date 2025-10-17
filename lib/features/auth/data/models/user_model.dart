@@ -1,4 +1,5 @@
 import '../../../../core/entities/user.dart';
+import '../../../../core/errors/exceptions.dart';
 
 class UserModel {
   final String id;
@@ -16,13 +17,41 @@ class UserModel {
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
-    return UserModel(
-      id: json['id'] as String,
-      email: json['email'] as String,
-      name: json['name'] as String,
-      updatedAt: DateTime.parse(json['updated_at'] as String),
-      createdAt: DateTime.parse(json['created_at'] as String),
-    );
+    final id = json['id'];
+    final email = json['email'];
+    final name = json['name'];
+    final updatedAt = json['updated_at'];
+    final createdAt = json['created_at'];
+
+    if (id == null) {
+      throw const ParseException(message: 'User id is required but was null');
+    }
+    if (email == null) {
+      throw const ParseException(message: 'User email is required but was null');
+    }
+    if (name == null) {
+      throw const ParseException(message: 'User name is required but was null');
+    }
+    if (updatedAt == null) {
+      throw const ParseException(message: 'User updated_at is required but was null');
+    }
+    if (createdAt == null) {
+      throw const ParseException(message: 'User created_at is required but was null');
+    }
+
+    try {
+      return UserModel(
+        id: id as String,
+        email: email as String,
+        name: name as String,
+        updatedAt: DateTime.parse(updatedAt as String),
+        createdAt: DateTime.parse(createdAt as String),
+      );
+    } catch (e) {
+      throw ParseException(
+        message: 'Failed to parse UserModel: ${e.toString()}',
+      );
+    }
   }
 
   Map<String, dynamic> toJson() {

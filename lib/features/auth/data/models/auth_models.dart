@@ -1,3 +1,6 @@
+import '../models/user_model.dart';
+import '../../../../core/errors/exceptions.dart';
+
 class LoginRequest {
   final String email;
   final String password;
@@ -16,21 +19,47 @@ class LoginRequest {
 }
 
 class LoginResponse {
-  final String token;
+  final String accessToken;
   final String refreshToken;
-  final Map<String, dynamic> user;
+  final UserModel user;
 
   LoginResponse({
-    required this.token,
+    required this.accessToken,
     required this.refreshToken,
     required this.user,
   });
 
   factory LoginResponse.fromJson(Map<String, dynamic> json) {
-    return LoginResponse(
-      token: json['token'] as String,
-      refreshToken: json['refresh_token'] as String,
-      user: json['user'] as Map<String, dynamic>,
-    );
+    final accessToken = json['accessToken'];
+    final refreshToken = json['refreshToken'];
+    final userData = json['user'];
+
+    if (accessToken == null) {
+      throw const ParseException(
+        message: 'accessToken is required but was null',
+      );
+    }
+    if (refreshToken == null) {
+      throw const ParseException(
+        message: 'refreshToken is required but was null',
+      );
+    }
+    if (userData == null) {
+      throw const ParseException(
+        message: 'user data is required but was null',
+      );
+    }
+
+    try {
+      return LoginResponse(
+        accessToken: accessToken as String,
+        refreshToken: refreshToken as String,
+        user: UserModel.fromJson(userData as Map<String, dynamic>),
+      );
+    } catch (e) {
+      throw ParseException(
+        message: 'Failed to parse LoginResponse: ${e.toString()}',
+      );
+    }
   }
 }

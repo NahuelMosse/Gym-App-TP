@@ -149,7 +149,7 @@ abstract class Translations {
   /// No description provided for @signInWithGoogle.
   ///
   /// In en, this message translates to:
-  /// **'Sign in with Google'**
+  /// **'Continue with Google'**
   String get signInWithGoogle;
 
   /// No description provided for @signUp.

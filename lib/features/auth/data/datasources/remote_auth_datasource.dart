@@ -12,7 +12,6 @@ abstract class RemoteAuthDataSource extends BaseDataSource {
 
 class RemoteAuthDataSourceImpl implements RemoteAuthDataSource {
   final Dio dio;
-  static const String baseUrl = 'https://your-api-url.com/api/v1';
 
   RemoteAuthDataSourceImpl({required this.dio}) {
     // Configurar interceptores para el token
@@ -42,7 +41,7 @@ class RemoteAuthDataSourceImpl implements RemoteAuthDataSource {
   Future<LoginResponse> login(LoginRequest request) async {
     try {
       final response = await dio.post(
-        '$baseUrl/auth/login',
+        '/auth/login',
         data: request.toJson(),
       );
 
@@ -63,7 +62,7 @@ class RemoteAuthDataSourceImpl implements RemoteAuthDataSource {
   @override
   Future<void> logout() async {
     try {
-      await dio.post('$baseUrl/auth/logout');
+      await dio.post('/auth/logout');
     } on DioException catch (e) {
       throw _handleDioError(e);
     }
@@ -72,7 +71,7 @@ class RemoteAuthDataSourceImpl implements RemoteAuthDataSource {
   @override
   Future<UserModel> getCurrentUser() async {
     try {
-      final response = await dio.get('$baseUrl/auth/me');
+      final response = await dio.get('/auth/me');
       
       if (response.statusCode == 200) {
         return UserModel.fromJson(response.data);
@@ -92,7 +91,7 @@ class RemoteAuthDataSourceImpl implements RemoteAuthDataSource {
   Future<void> refreshToken(String refreshToken) async {
     try {
       final response = await dio.post(
-        '$baseUrl/auth/refresh',
+        '/auth/refresh',
         data: {'refresh_token': refreshToken},
       );
 
@@ -140,8 +139,5 @@ class RemoteAuthDataSourceImpl implements RemoteAuthDataSource {
   }
 
   @override
-  void dispose() {
-    // Dio no necesita limpieza específica en este caso
-    // pero podríamos cancelar requests pendientes si los tuviéramos
-  }
+  void dispose() {}
 }

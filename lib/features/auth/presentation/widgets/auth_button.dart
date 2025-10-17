@@ -25,7 +25,6 @@ class AuthButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Builder(builder: (context) {
       final cs = Theme.of(context).colorScheme;
-      final appColors = Theme.of(context).extension<AppColors>()!;
 
       return SizedBox(
       width: width ?? double.infinity,
@@ -39,8 +38,8 @@ class AuthButton extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
-          disabledBackgroundColor: appColors.disabledBackground,
-          disabledForegroundColor: appColors.disabledForeground,
+          disabledBackgroundColor: AppColors.disabledBackground,
+          disabledForegroundColor: AppColors.disabledForeground,
         ),
         child: isLoading
           ? const SizedBox(
