@@ -24,19 +24,19 @@ class LoginUseCase extends BaseUseCase<User, LoginParams> {
     final password = params.password;
 
     if (email.isEmpty) {
-      throw const BadRequestException(message: 'El email es requerido');
+      throw const BadRequestException(message: 'Email is required');
     }
     
     if (password.isEmpty) {
-      throw const BadRequestException(message: 'La contraseña es requerida');
+      throw const BadRequestException(message: 'Password is required');
     }
 
     if (!_isValidEmail(email)) {
-      throw const BadRequestException(message: 'El email no es válido');
+      throw const BadRequestException(message: 'Email is not valid');
     }
 
     if (password.length < 6) {
-      throw const BadRequestException(message: 'La contraseña debe tener al menos 6 caracteres');
+      throw const BadRequestException(message: 'Password must be at least 6 characters');
     }
 
     return await repository.login(email: email, password: password);
