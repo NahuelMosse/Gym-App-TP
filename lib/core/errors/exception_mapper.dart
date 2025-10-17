@@ -57,5 +57,5 @@ DomainException mapExceptionToDomain(Object e) {
     }
   }
 
-  return const ServerException(message: 'Error inesperado');
+  return const ServerException(message: 'Unexpected error');
 }
