@@ -169,7 +169,7 @@ class _LoginPageState extends State<LoginPage> {
                     
                     const SizedBox(height: 24),
 
-                    SocialDivider(),
+                    SocialDivider(label: translations.orLabel),
 
                     const SizedBox(height: 24),
 
