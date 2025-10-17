@@ -80,7 +80,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
 
-              const SizedBox(height: 24),
+              const SizedBox(height: 12),
               
               Text(
                 translations.signInToContinue,
@@ -89,7 +89,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               
-              const SizedBox(height: 12),
+              const SizedBox(height: 24),
               
               if (widget.errorMessage != null) ...[
                 AuthErrorBanner(message: widget.errorMessage!),
