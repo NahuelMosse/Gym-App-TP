@@ -72,6 +72,99 @@ class StorageException extends DomainException {
   const StorageException({required super.message, super.code});
 }
 
+
+class DatabaseConnectionException extends DomainException {
+  const DatabaseConnectionException({
+    super.message = 'Failed to connect to database',
+    super.code = 500,
+  });
+}
+
+class DatabaseInitializationException extends DomainException {
+  const DatabaseInitializationException({
+    super.message = 'Failed to initialize database',
+    super.code = 500,
+  });
+}
+
+class DatabaseMigrationException extends DomainException {
+  const DatabaseMigrationException({
+    super.message = 'Database migration failed',
+    super.code = 500,
+  });
+}
+
+class DatabaseQueryException extends DomainException {
+  const DatabaseQueryException({
+    super.message = 'Database query failed',
+    super.code = 500,
+  });
+}
+
+class DatabaseInsertException extends DomainException {
+  const DatabaseInsertException({
+    super.message = 'Failed to insert data',
+    super.code = 500,
+  });
+}
+
+class DatabaseUpdateException extends DomainException {
+  const DatabaseUpdateException({
+    super.message = 'Failed to update data',
+    super.code = 500,
+  });
+}
+
+class DatabaseDeleteException extends DomainException {
+  const DatabaseDeleteException({
+    super.message = 'Failed to delete data',
+    super.code = 500,
+  });
+}
+
+class DatabaseTransactionException extends DomainException {
+  const DatabaseTransactionException({
+    super.message = 'Database transaction failed',
+    super.code = 500,
+  });
+}
+
+class DatabaseCorruptionException extends DomainException {
+  const DatabaseCorruptionException({
+    super.message = 'Database corruption detected',
+    super.code = 500,
+  });
+}
+
+class DatabaseLockException extends DomainException {
+  const DatabaseLockException({
+    super.message = 'Database is locked',
+    super.code = 423,
+  });
+}
+
+class DatabaseConstraintException extends DomainException {
+  const DatabaseConstraintException({
+    super.message = 'Database constraint violation',
+    super.code = 409,
+  });
+}
+
+class EntityNotFoundException extends DomainException {
+  const EntityNotFoundException({
+    super.message = 'Entity not found in database',
+    super.code = 404,
+  });
+}
+
 class CancelledException extends DomainException {
   const CancelledException({super.message = 'Request cancelled', super.code});
+}
+
+class DatabaseDeletionException extends DomainException {
+  const DatabaseDeletionException({required super.message, super.code});
+}
+
+class DatabaseSeedingException extends DomainException {
+  const DatabaseSeedingException({required super.message, super.code});
 }
