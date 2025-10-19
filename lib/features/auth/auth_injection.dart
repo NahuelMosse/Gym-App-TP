@@ -10,7 +10,7 @@ import 'data/repositories/auth_repository_impl.dart';
 import 'data/datasources/local_auth_datasource.dart';
 import 'data/datasources/remote_auth_datasource.dart';
 import 'data/datasources/database_auth_datasource.dart';
-import '../../core/database/database_helper.dart';
+import '../../core/database/app_database.dart';
 import 'presentation/state/auth_bloc.dart';
 
 class AuthInjection {
@@ -29,7 +29,7 @@ class AuthInjection {
 
     serviceLocator.registerLazySingleton<DatabaseAuthDataSource>(
       () => DatabaseAuthDataSourceImpl(
-        database: DatabaseHelper.database,
+        database: serviceLocator<AppDatabase>(),
       ),
     );
 
