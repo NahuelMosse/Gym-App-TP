@@ -42,7 +42,6 @@ class AppRouter {
     routes: [
       GoRoute(
         path: AppRoutes.login,
-        builder: (context, state) => const AuthRouter(),
         pageBuilder: (context, state) => NoTransitionPage(
           key: state.pageKey,
           child: const AuthRouter(),
@@ -50,7 +49,6 @@ class AppRouter {
       ),
       GoRoute(
         path: AppRoutes.home,
-        builder: (context, state) => const HomePage(),
         pageBuilder: (context, state) => NoTransitionPage(
           key: state.pageKey,
           child: const HomePage(),
@@ -58,7 +56,6 @@ class AppRouter {
       ),
       GoRoute(
         path: AppRoutes.profile,
-        builder: (context, state) => const ProfilePage(),
         pageBuilder: (context, state) => NoTransitionPage(
           key: state.pageKey,
           child: const ProfilePage(),
@@ -66,7 +63,6 @@ class AppRouter {
       ),
       GoRoute(
         path: AppRoutes.creator,
-        builder: (context, state) => const CreatorPage(),
         pageBuilder: (context, state) => NoTransitionPage(
           key: state.pageKey,
           child: const CreatorPage(),
