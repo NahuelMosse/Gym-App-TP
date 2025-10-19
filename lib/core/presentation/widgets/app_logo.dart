@@ -15,7 +15,7 @@ class AppLogo extends StatelessWidget {
       height: size,
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.primary,
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(size * 0.25),
       ),
       child: Icon(
         Icons.fitness_center,
