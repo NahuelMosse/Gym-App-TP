@@ -5,30 +5,23 @@ import '../../../features/auth/presentation/state/auth_bloc.dart';
 import '../../../features/auth/presentation/state/auth_event.dart';
 import '../../router/app_router.dart';
 import '../../../features/internationalization/generated/translations.dart';
-import '../../../features/internationalization/presentation/widgets/language_picker.dart';
+import '../widgets/main_navigation.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
+  State<HomePage> createState() => HomePageState();
+}
+
+class HomePageState extends State<HomePage> {
+  
+  @override
   Widget build(BuildContext context) {
     final translations = Translations.of(context);
-    
+
     return Scaffold(
-      appBar: AppBar(
-        title: Text('${translations.appName} - ${translations.homeTitle}'),
-        actions: [
-          const LanguagePicker(),
-          IconButton(
-            icon: const Icon(Icons.logout),
-            tooltip: translations.signOut,
-            onPressed: () {
-              context.read<AuthBloc>().add(LogoutRequestedEvent());
-              context.go(AppRoutes.login);
-            },
-          ),
-        ],
-      ),
+      appBar: AppBar(),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -46,9 +39,7 @@ class HomePage extends StatelessWidget {
             SizedBox(height: 16),
             Text(
               translations.mainContentHere,
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyMedium
+              style: Theme.of(context).textTheme.bodyMedium,
             ),
             SizedBox(height: 32),
             ElevatedButton.icon(
@@ -68,6 +59,7 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),
+      bottomNavigationBar: const MainNavigation(),
     );
   }
 }

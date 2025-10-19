@@ -116,4 +116,10 @@ class TranslationsEn extends Translations {
 
   @override
   String get unexpectedError => 'Unexpected error. Please try again.';
+
+  @override
+  String get creatorPage => 'Creator page';
+
+  @override
+  String get profilePage => 'Profile page';
 }

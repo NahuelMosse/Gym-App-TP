@@ -118,4 +118,10 @@ class TranslationsEs extends Translations {
 
   @override
   String get unexpectedError => 'Error inesperado. Intenta nuevamente.';
+
+  @override
+  String get creatorPage => 'Página del creador';
+
+  @override
+  String get profilePage => 'Página de perfil';
 }
