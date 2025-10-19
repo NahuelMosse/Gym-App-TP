@@ -5,7 +5,7 @@ import '../../../features/auth/presentation/state/auth_bloc.dart';
 import '../../../features/auth/presentation/state/auth_event.dart';
 import '../../router/app_router.dart';
 import '../../../features/internationalization/generated/translations.dart';
-import '../../../features/internationalization/presentation/widgets/language_picker.dart';
+import '../widgets/main_navigation.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -15,78 +15,51 @@ class HomePage extends StatefulWidget {
 }
 
 class HomePageState extends State<HomePage> {
-  final ScrollController _scrollController = ScrollController();
-
-  void scrollToTop() {
-    _scrollController.animateTo(
-      0,
-      duration: const Duration(milliseconds: 400),
-      curve: Curves.easeOut,
-    );
-  }
-
+  
   @override
   Widget build(BuildContext context) {
     final translations = Translations.of(context);
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('${translations.appName} - ${translations.homeTitle}'),
-        actions: [
-          const LanguagePicker(),
-          IconButton(
-            icon: const Icon(Icons.logout),
-            tooltip: translations.signOut,
-            onPressed: () {
-              context.read<AuthBloc>().add(LogoutRequestedEvent());
-              context.go(AppRoutes.login);
-            },
-          ),
-        ],
-      ),
-      body: ListView(
-        controller: _scrollController,
-        padding: const EdgeInsets.all(16),
-        children: [
-          Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.fitness_center,
-                  size: 100,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-                SizedBox(height: 24),
-                Text(
-                  translations.welcomeToGymApp,
-                  style: Theme.of(context).textTheme.headlineMedium,
-                ),
-                SizedBox(height: 16),
-                Text(
-                  translations.mainContentHere,
-                  style: Theme.of(context).textTheme.bodyMedium,
-                ),
-                SizedBox(height: 32),
-                ElevatedButton.icon(
-                  onPressed: () {
-                    context.read<AuthBloc>().add(LogoutRequestedEvent());
-                    context.go(AppRoutes.login);
-                  },
-                  icon: const Icon(Icons.login),
-                  label: Text(translations.backToLogin),
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 24,
-                      vertical: 12,
-                    ),
-                  ),
-                ),
-              ],
+      appBar: AppBar(),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.fitness_center,
+              size: 100,
+              color: Theme.of(context).colorScheme.primary,
             ),
-          ),
-        ],
+            SizedBox(height: 24),
+            Text(
+              translations.welcomeToGymApp,
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
+            SizedBox(height: 16),
+            Text(
+              translations.mainContentHere,
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
+            SizedBox(height: 32),
+            ElevatedButton.icon(
+              onPressed: () {
+                context.read<AuthBloc>().add(LogoutRequestedEvent());
+                context.go(AppRoutes.login);
+              },
+              icon: const Icon(Icons.login),
+              label: Text(translations.backToLogin),
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 24,
+                  vertical: 12,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
+      bottomNavigationBar: const MainNavigation(),
     );
   }
 }

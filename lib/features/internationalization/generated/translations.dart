@@ -307,6 +307,18 @@ abstract class Translations {
   /// In en, this message translates to:
   /// **'Unexpected error. Please try again.'**
   String get unexpectedError;
+
+  /// No description provided for @creatorPage.
+  ///
+  /// In en, this message translates to:
+  /// **'Creator page'**
+  String get creatorPage;
+
+  /// No description provided for @profilePage.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile page'**
+  String get profilePage;
 }
 
 class _TranslationsDelegate extends LocalizationsDelegate<Translations> {
