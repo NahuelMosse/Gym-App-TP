@@ -5,7 +5,6 @@ import '../../../../core/interfaces/base_interfaces.dart';
 
 abstract class RemoteAuthDataSource extends BaseDataSource {
   Future<LoginResponse> login(LoginRequest request);
-  Future<void> logout();
   Future<UserModel> getCurrentUser();
   Future<void> refreshToken(String refreshToken);
 }
@@ -54,15 +53,6 @@ class RemoteAuthDataSourceImpl implements RemoteAuthDataSource {
           message: 'Login failed',
         );
       }
-    } on DioException catch (e) {
-      throw _handleDioError(e);
-    }
-  }
-
-  @override
-  Future<void> logout() async {
-    try {
-      await dio.post('/auth/logout');
     } on DioException catch (e) {
       throw _handleDioError(e);
     }
