@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../core/presentation/widgets/main_navigation_bar.dart';
 import '../state/auth_bloc.dart';
 import '../state/auth_state.dart';
 import '../pages/login_page.dart';
@@ -21,7 +20,6 @@ class AuthRouter extends StatelessWidget {
           AuthLoadingState() => LoadingPage(
             message: translations.verifyingAuth,
           ),
-          AuthenticatedState() => const MainNavigation(),
           AuthErrorState() => LoginPage(
             errorMessage: AuthErrorHandler.getErrorMessage(
               state.exception,

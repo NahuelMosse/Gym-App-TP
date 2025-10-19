@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import '../../../features/internationalization/generated/translations.dart';
+import '../../../features/internationalization/presentation/widgets/language_picker.dart';
+import '../widgets/main_navigation.dart';
+import '../widgets/logout_button.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -8,12 +12,19 @@ class ProfilePage extends StatefulWidget {
 }
 
 class ProfilePageState extends State<ProfilePage> {
-  void refreshData() {
-    // lógica para recargar la data
-  }
-
   @override
   Widget build(BuildContext context) {
-    return const Center(child: Text('Profile Page'));
+    final translations = Translations.of(context);
+
+    return Scaffold(
+      appBar: AppBar(
+        actions: [
+          const LanguagePicker(),
+          const LogoutButton(),
+        ],
+      ),
+      body: Center(child: Text(translations.profilePage)),
+      bottomNavigationBar: const MainNavigation(),
+    );
   }
 }

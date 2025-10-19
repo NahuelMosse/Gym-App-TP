@@ -2,16 +2,20 @@ import 'package:go_router/go_router.dart';
 import '../../features/auth/presentation/router/auth_router.dart';
 import '../../features/auth/presentation/state/auth_bloc.dart';
 import '../../features/auth/presentation/state/auth_state.dart';
-import '../presentation/widgets/main_navigation_bar.dart';
+import '../presentation/page/creator_page.dart';
+import '../presentation/page/home_page.dart';
+import '../presentation/page/profile_page.dart';
 import 'notify_on_refresh_stream.dart';
 
 /// App routes definition
 class AppRoutes {
   static const String login = '/login';
-  static const String mainNavigation = '/mainNavigation';
+  static const String home = '/home';
+  static const String profile = '/profile';
+  static const String creator = '/creator';
 
   /// Routes that require authentication
-  static const List<String> protectedRoutes = [mainNavigation];
+  static const List<String> protectedRoutes = [home, profile, creator];
 }
 
 /// GoRouter configuration
@@ -30,7 +34,7 @@ class AppRouter {
 
       // If user is logged in and on the login page, send to home
       if (isLoggedIn && currentRoute == AppRoutes.login) {
-        return AppRoutes.mainNavigation;
+        return AppRoutes.home;
       }
 
       return null;
@@ -39,10 +43,34 @@ class AppRouter {
       GoRoute(
         path: AppRoutes.login,
         builder: (context, state) => const AuthRouter(),
+        pageBuilder: (context, state) => NoTransitionPage(
+          key: state.pageKey,
+          child: const AuthRouter(),
+        ),
       ),
       GoRoute(
-        path: AppRoutes.mainNavigation,
-        builder: (context, state) => const MainNavigation(),
+        path: AppRoutes.home,
+        builder: (context, state) => const HomePage(),
+        pageBuilder: (context, state) => NoTransitionPage(
+          key: state.pageKey,
+          child: const HomePage(),
+        ),
+      ),
+      GoRoute(
+        path: AppRoutes.profile,
+        builder: (context, state) => const ProfilePage(),
+        pageBuilder: (context, state) => NoTransitionPage(
+          key: state.pageKey,
+          child: const ProfilePage(),
+        ),
+      ),
+      GoRoute(
+        path: AppRoutes.creator,
+        builder: (context, state) => const CreatorPage(),
+        pageBuilder: (context, state) => NoTransitionPage(
+          key: state.pageKey,
+          child: const CreatorPage(),
+        ),
       ),
     ],
   );
