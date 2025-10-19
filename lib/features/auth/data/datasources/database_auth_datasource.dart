@@ -5,8 +5,7 @@ import '../../../../core/interfaces/base_interfaces.dart';
 import '../models/user_model.dart';
 
 abstract class DatabaseAuthDataSource extends BaseDataSource {
-  Future<void> createUser(UserModel user);
-  Future<void> updateUser(UserModel user);
+  Future<void> upsertUser(UserModel user);
   Future<UserModel?> getUserById(String id);
   Future<void> deleteUserById(String id);
 }
@@ -17,9 +16,9 @@ class DatabaseAuthDataSourceImpl implements DatabaseAuthDataSource {
   DatabaseAuthDataSourceImpl({required this.database});
 
   @override
-  Future<void> createUser(UserModel user) async {
+  Future<void> upsertUser(UserModel user) async {
     try {
-      await database.into(database.users).insert(
+      await database.into(database.users).insertOnConflictUpdate(
         UsersCompanion(
           id: Value(user.id),
           email: Value(user.email),
@@ -30,26 +29,7 @@ class DatabaseAuthDataSourceImpl implements DatabaseAuthDataSource {
       );
     } catch (e) {
       throw DatabaseQueryException(
-        message: 'Failed to create user in database: $e',
-      );
-    }
-  }
-
-  @override
-  Future<void> updateUser(UserModel user) async {
-    try {
-      await (database.update(database.users)
-        ..where((tbl) => tbl.id.equals(user.id))
-      ).write(
-        UsersCompanion(
-          email: Value(user.email),
-          name: Value(user.name),
-          updatedAt: Value(user.updatedAt),
-        ),
-      );
-    } catch (e) {
-      throw DatabaseQueryException(
-        message: 'Failed to update user in database: $e',
+        message: 'Failed to upsert user in database: $e',
       );
     }
   }

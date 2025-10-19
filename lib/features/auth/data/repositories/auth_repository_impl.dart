@@ -37,12 +37,7 @@ class AuthRepositoryImpl implements AuthRepository {
         email: loginResponse.user.email,
       );
 
-      final existingUser = await databaseDataSource.getUserById(loginResponse.user.id);
-      if (existingUser != null) {
-        await databaseDataSource.updateUser(loginResponse.user);
-      } else {
-        await databaseDataSource.createUser(loginResponse.user);
-      }
+      await databaseDataSource.upsertUser(loginResponse.user);
 
       return loginResponse.user.toEntity();
     } catch (e) {
