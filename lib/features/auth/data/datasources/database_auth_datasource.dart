@@ -1,6 +1,5 @@
 import 'package:drift/drift.dart';
 import '../../../../core/database/app_database.dart';
-import '../../../../core/database/database_helper.dart';
 import '../../../../core/errors/exceptions.dart';
 import '../../../../core/interfaces/base_interfaces.dart';
 import '../models/user_model.dart';
@@ -15,8 +14,7 @@ abstract class DatabaseAuthDataSource extends BaseDataSource {
 class DatabaseAuthDataSourceImpl implements DatabaseAuthDataSource {
   final AppDatabase database;
 
-  DatabaseAuthDataSourceImpl({AppDatabase? database})
-    : database = database ?? DatabaseHelper.database;
+  DatabaseAuthDataSourceImpl({required this.database});
 
   @override
   Future<void> createUser(UserModel user) async {

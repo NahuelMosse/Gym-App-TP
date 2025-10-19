@@ -6,6 +6,7 @@ import '../../../features/auth/presentation/state/auth_event.dart';
 import '../../router/app_router.dart';
 import '../../../features/internationalization/generated/translations.dart';
 import '../../../features/internationalization/presentation/widgets/language_picker.dart';
+import '../../widgets/debug_db_viewer.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -18,6 +19,7 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: Text('${translations.appName} - ${translations.homeTitle}'),
         actions: [
+          const DebugDbViewer(),
           const LanguagePicker(),
           IconButton(
             icon: const Icon(Icons.logout),
