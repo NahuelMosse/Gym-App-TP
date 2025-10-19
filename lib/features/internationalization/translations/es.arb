@@ -37,5 +37,8 @@
   "noPermission": "No tienes permisos para realizar esta acción",
   "serverError": "Error del servidor. Intenta más tarde.",
   "invalidServerResponse": "Respuesta inválida del servidor. Intenta nuevamente.",
-  "unexpectedError": "Error inesperado. Intenta nuevamente."
+  "unexpectedError": "Error inesperado. Intenta nuevamente.",
+
+  "creatorPage": "Página del creador",
+  "profilePage": "Página de perfil"
 }
