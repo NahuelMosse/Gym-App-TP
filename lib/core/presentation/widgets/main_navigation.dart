@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-
+import '../../../features/internationalization/generated/translations.dart';
 import '../../router/app_router.dart';
 import '../../theme/app_theme.dart';
 
@@ -19,6 +19,8 @@ class MainNavigation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final translations = Translations.of(context);
+
     return BottomNavigationBar(
       selectedItemColor: AppColors.primary,
       showSelectedLabels: false,
@@ -37,18 +39,18 @@ class MainNavigation extends StatelessWidget {
             break;
         }
       },
-      items: const [
+      items: [
         BottomNavigationBarItem(
-          icon: Icon(Icons.fitness_center),
-          label: 'Creator',
+          icon: const Icon(Icons.fitness_center),
+          label: translations.creatorPage,
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.home),
-          label: 'Home',
+          icon: const Icon(Icons.home),
+          label: translations.homeTitle,
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.person),
-          label: 'Profile',
+          icon: const Icon(Icons.person),
+          label: translations.profilePage,
         ),
       ],
     );
