@@ -8,7 +8,9 @@ class MainNavigation extends StatelessWidget {
   const MainNavigation({super.key});
 
   int _getCurrentIndex(BuildContext context) {
-    final location = GoRouter.of(context).routerDelegate.currentConfiguration.fullPath;
+    final location = GoRouter.of(
+      context,
+    ).routerDelegate.currentConfiguration.fullPath;
 
     if (location.contains(AppRoutes.creator)) return 0;
     if (location.contains(AppRoutes.home)) return 1;
