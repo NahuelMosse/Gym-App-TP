@@ -5,6 +5,7 @@ import '../../../features/auth/presentation/state/auth_bloc.dart';
 import '../../../features/auth/presentation/state/auth_event.dart';
 import '../../router/app_router.dart';
 import '../../../features/internationalization/generated/translations.dart';
+import '../../widgets/debug_db_viewer.dart';
 import '../widgets/main_navigation.dart';
 
 class HomePage extends StatefulWidget {
@@ -21,7 +22,11 @@ class HomePageState extends State<HomePage> {
     final translations = Translations.of(context);
 
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        actions: [
+          const DebugDbViewer(),
+        ],
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

@@ -1,17 +1,17 @@
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'dart:convert';
-import '../models/user_model.dart';
 import '../../../../core/interfaces/base_interfaces.dart';
 import '../../../../core/shared/storage_keys.dart';
 
 abstract class LocalAuthDataSource extends BaseDataSource {
   Future<void> saveToken(String token);
   Future<void> saveRefreshToken(String refreshToken);
-  Future<void> saveUser(UserModel user);
+  Future<void> saveUserInfo({required String id, required String name, required String email});
   Future<String?> getToken();
   Future<String?> getRefreshToken();
-  Future<UserModel?> getUser();
+  Future<String?> getUserId();
+  Future<String?> getUserName();
+  Future<String?> getUserEmail();
   Future<void> clearAuthData();
 }
 
@@ -36,9 +36,12 @@ class LocalAuthDataSourceImpl implements LocalAuthDataSource {
   }
 
   @override
-  Future<void> saveUser(UserModel user) async {
-    final userJson = json.encode(user.toJson());
-    await sharedPreferences.setString(SharedPreferencesKeys.userData, userJson);
+  Future<void> saveUserInfo({required String id, required String name, required String email}) async {
+    await Future.wait([
+      sharedPreferences.setString(SharedPreferencesKeys.userId, id),
+      sharedPreferences.setString(SharedPreferencesKeys.userName, name),
+      sharedPreferences.setString(SharedPreferencesKeys.userEmail, email),
+    ]);
   }
 
   @override
@@ -52,13 +55,18 @@ class LocalAuthDataSourceImpl implements LocalAuthDataSource {
   }
 
   @override
-  Future<UserModel?> getUser() async {
-    final userString = sharedPreferences.getString(SharedPreferencesKeys.userData);
-    if (userString != null) {
-      final userMap = json.decode(userString) as Map<String, dynamic>;
-      return UserModel.fromJson(userMap);
-    }
-    return null;
+  Future<String?> getUserId() async {
+    return sharedPreferences.getString(SharedPreferencesKeys.userId);
+  }
+
+  @override
+  Future<String?> getUserName() async {
+    return sharedPreferences.getString(SharedPreferencesKeys.userName);
+  }
+
+  @override
+  Future<String?> getUserEmail() async {
+    return sharedPreferences.getString(SharedPreferencesKeys.userEmail);
   }
 
   @override
@@ -66,7 +74,9 @@ class LocalAuthDataSourceImpl implements LocalAuthDataSource {
     await Future.wait([
       secureStorage.delete(key: SecureStorageKeys.accessToken),
       secureStorage.delete(key: SecureStorageKeys.refreshToken),
-      sharedPreferences.remove(SharedPreferencesKeys.userData),
+      sharedPreferences.remove(SharedPreferencesKeys.userId),
+      sharedPreferences.remove(SharedPreferencesKeys.userName),
+      sharedPreferences.remove(SharedPreferencesKeys.userEmail),
     ]);
   }
 
