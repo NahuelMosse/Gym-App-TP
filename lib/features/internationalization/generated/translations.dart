@@ -311,8 +311,44 @@ abstract class Translations {
   /// No description provided for @creatorPage.
   ///
   /// In en, this message translates to:
-  /// **'Creator page'**
+  /// **'Creator Page'**
   String get creatorPage;
+
+  /// No description provided for @exercisesButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Exercises'**
+  String get exercisesButton;
+
+  /// No description provided for @trainingDaysButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Training Days'**
+  String get trainingDaysButton;
+
+  /// No description provided for @routinesButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Routines'**
+  String get routinesButton;
+
+  /// No description provided for @routinesButtonS.
+  ///
+  /// In en, this message translates to:
+  /// **'Microcycles'**
+  String get routinesButtonS;
+
+  /// No description provided for @advRoutinesButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Advanced Routines'**
+  String get advRoutinesButton;
+
+  /// No description provided for @advRoutinesButtonS.
+  ///
+  /// In en, this message translates to:
+  /// **'Mesocycles & Macrocycles'**
+  String get advRoutinesButtonS;
 
   /// No description provided for @profilePage.
   ///
