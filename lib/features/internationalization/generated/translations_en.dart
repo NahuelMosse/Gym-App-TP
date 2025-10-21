@@ -118,7 +118,25 @@ class TranslationsEn extends Translations {
   String get unexpectedError => 'Unexpected error. Please try again.';
 
   @override
-  String get creatorPage => 'Creator page';
+  String get creatorPage => 'Creator Page';
+
+  @override
+  String get exercisesButton => 'Exercises';
+
+  @override
+  String get trainingDaysButton => 'Training Days';
+
+  @override
+  String get routinesButton => 'Routines';
+
+  @override
+  String get routinesButtonS => 'Microcycles';
+
+  @override
+  String get advRoutinesButton => 'Advanced Routines';
+
+  @override
+  String get advRoutinesButtonS => 'Mesocycles & Macrocycles';
 
   @override
   String get profilePage => 'Profile page';
