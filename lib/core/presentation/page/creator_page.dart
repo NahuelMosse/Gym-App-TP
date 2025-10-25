@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../features/internationalization/generated/translations.dart';
 import '../widgets/main_navigation.dart';
 import '../widgets/menu_button.dart';
+import 'exercises_page.dart';
 import 'profile_page.dart';
 
 class CreatorPage extends StatefulWidget {
@@ -27,7 +28,7 @@ class CreatorPageState extends State<CreatorPage> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (_) => const ProfilePage()),
+                  MaterialPageRoute(builder: (_) => const ExercisesPage()),
                 );
               },
             ),

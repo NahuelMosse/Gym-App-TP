@@ -12,37 +12,12 @@ abstract class RemoteAuthDataSource extends BaseDataSource {
 class RemoteAuthDataSourceImpl implements RemoteAuthDataSource {
   final Dio dio;
 
-  RemoteAuthDataSourceImpl({required this.dio}) {
-    // Configurar interceptores para el token
-    dio.interceptors.add(
-      InterceptorsWrapper(
-        onRequest: (options, handler) async {
-          // Aquí puedes agregar el token a todas las requests automáticamente
-          // final token = await getStoredToken();
-          // if (token != null) {
-          //   options.headers['Authorization'] = 'Bearer $token';
-          // }
-          handler.next(options);
-        },
-        onError: (error, handler) async {
-          // Manejar errores de autenticación
-          if (error.response?.statusCode == 401) {
-            // Token expirado, intentar refresh
-            // await refreshTokenLogic();
-          }
-          handler.next(error);
-        },
-      ),
-    );
-  }
+  RemoteAuthDataSourceImpl({required this.dio});
 
   @override
   Future<LoginResponse> login(LoginRequest request) async {
     try {
-      final response = await dio.post(
-        '/auth/login',
-        data: request.toJson(),
-      );
+      final response = await dio.post('/auth/login', data: request.toJson());
 
       if (response.statusCode == 200) {
         return LoginResponse.fromJson(response.data);
@@ -62,7 +37,7 @@ class RemoteAuthDataSourceImpl implements RemoteAuthDataSource {
   Future<UserModel> getCurrentUser() async {
     try {
       final response = await dio.get('/auth/me');
-      
+
       if (response.statusCode == 200) {
         return UserModel.fromJson(response.data);
       } else {
