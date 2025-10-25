@@ -14,6 +14,10 @@ class AppConfig {
     }
   }
 
+  static String get dbName {
+    return dotenv.get('DB_NAME', fallback: 'gym_app.db');
+  }
+
   static String get apiUrl {
     return dotenv.get('API_URL', fallback: 'http://localhost:8080/api/v1');
   }
