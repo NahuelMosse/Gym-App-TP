@@ -50,14 +50,22 @@ class SecureStorageKeys {
 /// - User data that's not security-critical
 /// - Configuration that's okay to be readable
 /// 
-/// Usage: await sharedPreferences.setString(SharedPreferencesKeys.userData, json)
+/// Usage: await sharedPreferences.setString(SharedPreferencesKeys.userName, name)
 class SharedPreferencesKeys {
   // Private constructor to prevent instantiation
   SharedPreferencesKeys._();
 
-  /// User profile information stored as JSON (id, email, name, timestamps)
-  /// 📄 Shared Preferences Key: 'user_data'
-  static const String userData = 'user_data';
+  /// User ID for quick access (full user data is in database)
+  /// 📄 Shared Preferences Key: 'user_id'
+  static const String userId = 'user_id';
+
+  /// User name for quick access (full user data is in database)
+  /// 📄 Shared Preferences Key: 'user_name'
+  static const String userName = 'user_name';
+
+  /// User email for quick access (full user data is in database)
+  /// 📄 Shared Preferences Key: 'user_email'
+  static const String userEmail = 'user_email';
   
   /// App theme setting (light/dark/system)
   /// 📄 Shared Preferences Key: 'theme_mode'
@@ -76,7 +84,9 @@ class SharedPreferencesKeys {
   static const String lastSync = 'last_sync';
 
   static List<String> get allValues => [
-    userData,
+    userId,
+    userName,
+    userEmail,
     themeMode,
     locale,
     onboardingCompleted,

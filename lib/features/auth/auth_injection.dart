@@ -9,6 +9,8 @@ import 'domain/usecases/get_current_user_usecase.dart';
 import 'data/repositories/auth_repository_impl.dart';
 import 'data/datasources/local_auth_datasource.dart';
 import 'data/datasources/remote_auth_datasource.dart';
+import 'data/datasources/database_auth_datasource.dart';
+import '../../core/database/app_database.dart';
 import 'presentation/state/auth_bloc.dart';
 
 class AuthInjection {
@@ -25,11 +27,18 @@ class AuthInjection {
       () => RemoteAuthDataSourceImpl(dio: serviceLocator<Dio>()),
     );
 
+    serviceLocator.registerLazySingleton<DatabaseAuthDataSource>(
+      () => DatabaseAuthDataSourceImpl(
+        database: serviceLocator<AppDatabase>(),
+      ),
+    );
+
     // Repository
     serviceLocator.registerLazySingleton<AuthRepository>(
       () => AuthRepositoryImpl(
         remoteDataSource: serviceLocator<RemoteAuthDataSource>(),
         localDataSource: serviceLocator<LocalAuthDataSource>(),
+        databaseDataSource: serviceLocator<DatabaseAuthDataSource>(),
       ),
     );
 
