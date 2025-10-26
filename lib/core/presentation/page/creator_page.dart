@@ -4,6 +4,7 @@ import '../widgets/main_navigation.dart';
 import '../widgets/menu_button.dart';
 import 'exercises_page.dart';
 import 'profile_page.dart';
+import 'training_days_page.dart';
 
 class CreatorPage extends StatefulWidget {
   const CreatorPage({super.key});
@@ -38,7 +39,7 @@ class CreatorPageState extends State<CreatorPage> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (_) => const ProfilePage()),
+                  MaterialPageRoute(builder: (_) => const TrainingDaysPage()),
                 );
               },
             ),
