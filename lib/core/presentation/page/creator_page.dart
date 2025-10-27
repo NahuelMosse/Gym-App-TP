@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../../../features/internationalization/generated/translations.dart';
+import '../../router/app_router.dart';
 import '../widgets/main_navigation.dart';
 import '../widgets/menu_button.dart';
-import 'profile_page.dart';
 
 class CreatorPage extends StatefulWidget {
   const CreatorPage({super.key});
@@ -25,20 +26,14 @@ class CreatorPageState extends State<CreatorPage> {
             MenuButton(
               title: translations.exercisesButton,
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const ProfilePage()),
-                );
+                context.push(AppRoutes.profile);
               },
             ),
             const SizedBox(height: 16),
             MenuButton(
               title: translations.trainingDaysButton,
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const ProfilePage()),
-                );
+                context.push(AppRoutes.profile);
               },
             ),
             const SizedBox(height: 16),
@@ -46,10 +41,7 @@ class CreatorPageState extends State<CreatorPage> {
               title: translations.routinesButton,
               subtitle: translations.routinesButtonS,
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const ProfilePage()),
-                );
+                context.push(AppRoutes.profile);
               },
             ),
             const SizedBox(height: 16),
@@ -57,10 +49,7 @@ class CreatorPageState extends State<CreatorPage> {
               title: translations.advRoutinesButton,
               subtitle: translations.advRoutinesButtonS,
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const ProfilePage()),
-                );
+                context.push(AppRoutes.profile);
               },
             ),
           ],
