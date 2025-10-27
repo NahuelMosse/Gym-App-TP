@@ -46,6 +46,13 @@
   "invalidServerResponse": "Invalid server response. Please try again.",
   "unexpectedError": "Unexpected error. Please try again.",
 
-  "creatorPage": "Creator page",
+  "creatorPage": "Creator Page",
+  "exercisesButton": "Exercises",
+  "trainingDaysButton": "Training Days",
+  "routinesButton": "Routines",
+  "routinesButtonS": "Microcycles",
+  "advRoutinesButton": "Advanced Routines",
+  "advRoutinesButtonS": "Mesocycles & Macrocycles",
+
   "profilePage": "Profile page"
 }
