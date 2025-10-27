@@ -120,7 +120,25 @@ class TranslationsEs extends Translations {
   String get unexpectedError => 'Error inesperado. Intenta nuevamente.';
 
   @override
-  String get creatorPage => 'Página del creador';
+  String get creatorPage => 'Página de creación';
+
+  @override
+  String get exercisesButton => 'Ejercicios';
+
+  @override
+  String get trainingDaysButton => 'Días de Entrenamiento';
+
+  @override
+  String get routinesButton => 'Rutinas';
+
+  @override
+  String get routinesButtonS => 'Microciclos';
+
+  @override
+  String get advRoutinesButton => 'Rutinas Avanzadas';
+
+  @override
+  String get advRoutinesButtonS => 'Mesociclos y Macrociclos';
 
   @override
   String get profilePage => 'Página de perfil';
