@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../../../features/internationalization/generated/translations.dart';
+import '../../router/creator_router.dart';
 import '../widgets/main_navigation.dart';
 import '../widgets/menu_button.dart';
-import 'exercises_page.dart';
-import 'profile_page.dart';
-import 'training_days_page.dart';
 
 class CreatorPage extends StatefulWidget {
   const CreatorPage({super.key});
@@ -27,20 +26,14 @@ class CreatorPageState extends State<CreatorPage> {
             MenuButton(
               title: translations.exercisesButton,
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const ExercisesPage()),
-                );
+                context.push(CreatorRoutes.exerciseList);
               },
             ),
             const SizedBox(height: 16),
             MenuButton(
               title: translations.trainingDaysButton,
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const TrainingDaysPage()),
-                );
+                context.push(CreatorRoutes.workoutList);
               },
             ),
             const SizedBox(height: 16),
@@ -48,10 +41,7 @@ class CreatorPageState extends State<CreatorPage> {
               title: translations.routinesButton,
               subtitle: translations.routinesButtonS,
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const ProfilePage()),
-                );
+                // TODO
               },
             ),
             const SizedBox(height: 16),
@@ -59,10 +49,7 @@ class CreatorPageState extends State<CreatorPage> {
               title: translations.advRoutinesButton,
               subtitle: translations.advRoutinesButtonS,
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const ProfilePage()),
-                );
+                // TODO
               },
             ),
           ],
