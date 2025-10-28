@@ -13,7 +13,7 @@ class _WorkoutListPageState extends State<WorkoutListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Lista de Entrenamientos"), centerTitle: true),
+      appBar: AppBar(title: Text("Lista de Entrenamientos")),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),

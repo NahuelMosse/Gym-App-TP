@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../core/presentation/widgets/add_card.dart';
 import '../../../../injection_container.dart';
 import '../state/workout_bloc.dart';
 import 'workout_card.dart';
@@ -27,14 +28,24 @@ class WorkoutList extends StatelessWidget {
               final workouts = state.workouts;
 
               if (workouts.isEmpty) {
-                return const Center(child: Text('No workouts found.'));
+                return SizedBox(
+                  height: MediaQuery.of(context).size.height,
+                  child: ListView(
+                    children: [
+                      AddCard(),
+                    ],
+                  ),
+                );
               }
 
               return SizedBox(
                 height: MediaQuery.of(context).size.height,
                 child: ListView.builder(
-                  itemCount: workouts.length,
+                  itemCount: workouts.length + 1,
                   itemBuilder: (context, index) {
+                    if (index == workouts.length) {
+                      return AddCard();
+                    }
                     return WorkoutCard(workout: workouts[index]);
                   },
                 ),
