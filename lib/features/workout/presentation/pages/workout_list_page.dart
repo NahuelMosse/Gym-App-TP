@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
 import '../../../../core/presentation/widgets/main_navigation.dart';
+import '../widgets/workout_list.dart';
 
 class WorkoutListPage extends StatefulWidget {
   const WorkoutListPage({super.key});
@@ -14,7 +14,12 @@ class _WorkoutListPageState extends State<WorkoutListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Lista de Entrenamientos"), centerTitle: true),
-      body: Center(child: Column(children: [])),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          child: WorkoutList(),
+        ),
+      ),
       bottomNavigationBar: const MainNavigation(),
     );
   }
