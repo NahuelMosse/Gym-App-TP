@@ -4,12 +4,14 @@ import '../../domain/entities/workout.dart';
 
 class WorkoutCard extends StatelessWidget {
   final Workout workout;
+  final VoidCallback? onTap;
 
-  const WorkoutCard({super.key, required this.workout});
+  const WorkoutCard({super.key, required this.workout, this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return DetailCard(
+      onTap: onTap,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

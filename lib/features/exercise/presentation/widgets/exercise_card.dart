@@ -5,12 +5,14 @@ import 'muscle_chip.dart';
 
 class ExerciseCard extends StatelessWidget {
   final Exercise exercise;
+  final VoidCallback? onTap;
 
-  const ExerciseCard({super.key, required this.exercise});
+  const ExerciseCard({super.key, required this.exercise, this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return DetailCard(
+      onTap: onTap,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

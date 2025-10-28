@@ -3,12 +3,13 @@ import '../../../../core/theme/app_theme.dart';
 
 class DetailCard extends StatelessWidget {
   final Widget child;
+  final VoidCallback? onTap;
 
-  const DetailCard({super.key, required this.child});
+  const DetailCard({super.key, required this.child, this.onTap});
 
   @override
   Widget build(BuildContext context) {
-    return Card(
+    final card = Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(24),
         side: BorderSide(color: AppColors.disabled, width: 2),
@@ -20,5 +21,15 @@ class DetailCard extends StatelessWidget {
         child: child
       ),
     );
+
+    if (onTap != null) {
+      return InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(24),
+        child: card,
+      );
+    }
+
+    return card;
   }
 }
