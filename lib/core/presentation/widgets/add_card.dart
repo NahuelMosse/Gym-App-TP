@@ -3,12 +3,14 @@ import '../../theme/app_theme.dart';
 import 'detail_card.dart';
 
 class AddCard extends StatelessWidget {
-  const AddCard({super.key});
+  final VoidCallback? onTap;
+
+  const AddCard({super.key, this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return DetailCard(
-      onTap: () {},
+      onTap: onTap,
       child: Center(
         child: Icon(
           Icons.add,
