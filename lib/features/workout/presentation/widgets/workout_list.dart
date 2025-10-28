@@ -44,7 +44,11 @@ class WorkoutList extends StatelessWidget {
                   itemCount: workouts.length + 1,
                   itemBuilder: (context, index) {
                     if (index == workouts.length) {
-                      return AddCard();
+                      return AddCard(
+                        onTap: () {
+                          // TODO: ir a la pantalla de añadir workout (context.push())
+                        },
+                      );
                     }
                     return WorkoutCard(workout: workouts[index]);
                   },
