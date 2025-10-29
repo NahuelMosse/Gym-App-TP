@@ -23,7 +23,7 @@ class WorkoutCard extends StatelessWidget {
           ),
 
           Text(
-            workout.description,
+            workout.description ?? '',
             style: Theme.of(context).textTheme.bodyMedium,
             overflow: TextOverflow.ellipsis,
             maxLines: 2,

@@ -1,6 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import '../../data/models/workout_model.dart';
 import '../../domain/entities/workout.dart';
 import '../../domain/usecases/get_workouts_usecase.dart';
 import '../../domain/usecases/create_workout_usecase.dart';
@@ -38,12 +37,8 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
     Emitter<WorkoutState> emit,
   ) async {
     try {
-      // Insertar el nuevo workout en la BD
-      await createWorkoutUseCase(event.workout);
-
-      // Volver a cargar la lista actualizada
-      final workouts = await getWorkoutsUseCase();
-      emit(WorkoutLoaded(workouts));
+      final workoutId = await createWorkoutUseCase();
+      emit(WorkoutCreated(workoutId));
     } catch (e) {
       emit(WorkoutError(e));
     }

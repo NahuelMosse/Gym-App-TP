@@ -1,4 +1,5 @@
 import 'package:drift/drift.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../../../core/errors/exceptions.dart';
 import '../../../../core/database/app_database.dart';
@@ -7,7 +8,10 @@ import '../models/workout_model.dart';
 
 abstract class DatabaseWorkoutDataSource {
   Future<List<WorkoutModel>> fetchWorkouts();
-  Future<void> insertWorkout(WorkoutModel workout);
+  Future<String> insertWorkout({
+    required String userId,
+    required String name,
+  });
   Future<void> insertWorkoutExercise(
     List<WorkoutExerciseModel> workoutExercise,
   );
@@ -15,8 +19,12 @@ abstract class DatabaseWorkoutDataSource {
 
 class DatabaseWorkoutDataSourceImpl implements DatabaseWorkoutDataSource {
   final AppDatabase database;
+  final Uuid uuid;
 
-  DatabaseWorkoutDataSourceImpl({required this.database});
+  DatabaseWorkoutDataSourceImpl({
+    required this.uuid,
+    required this.database
+  });
 
   @override
   Future<List<WorkoutModel>> fetchWorkouts() async {
@@ -43,20 +51,26 @@ class DatabaseWorkoutDataSourceImpl implements DatabaseWorkoutDataSource {
   }
 
   @override
-  Future<void> insertWorkout(WorkoutModel workout) async {
+  Future<String> insertWorkout({
+    required String userId,
+    required String name,
+  }) async {
+    final workoutId = uuid.v4();
+
     await database
-        .into(database.workout)
-        .insert(
-          WorkoutCompanion.insert(
-            id: workout.id,
-            name: workout.name,
-            description: workout.description,
-            userId: workout.userId,
-            updatedAt: Value(workout.updatedAt),
-            createdAt: Value(workout.createdAt),
-          ),
-          mode: InsertMode.insert,
-        );
+      .into(database.workout)
+      .insert(
+        WorkoutCompanion.insert(
+          id: workoutId,
+          name: name,
+          userId: userId,
+          updatedAt: Value(DateTime.now()),
+          createdAt: Value(DateTime.now()),
+        ),
+        mode: InsertMode.insert,
+      );
+    
+    return workoutId;
   }
 
   @override

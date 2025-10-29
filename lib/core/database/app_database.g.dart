@@ -1513,9 +1513,9 @@ class $WorkoutTable extends Workout with TableInfo<$WorkoutTable, WorkoutData> {
   late final GeneratedColumn<String> description = GeneratedColumn<String>(
     'description',
     aliasedName,
-    false,
+    true,
     type: DriftSqlType.string,
-    requiredDuringInsert: true,
+    requiredDuringInsert: false,
   );
   static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
   @override
@@ -1592,8 +1592,6 @@ class $WorkoutTable extends Workout with TableInfo<$WorkoutTable, WorkoutData> {
           _descriptionMeta,
         ),
       );
-    } else if (isInserting) {
-      context.missing(_descriptionMeta);
     }
     if (data.containsKey('user_id')) {
       context.handle(
@@ -1635,7 +1633,7 @@ class $WorkoutTable extends Workout with TableInfo<$WorkoutTable, WorkoutData> {
       description: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}description'],
-      )!,
+      ),
       userId: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}user_id'],
@@ -1660,14 +1658,14 @@ class $WorkoutTable extends Workout with TableInfo<$WorkoutTable, WorkoutData> {
 class WorkoutData extends DataClass implements Insertable<WorkoutData> {
   final String id;
   final String name;
-  final String description;
+  final String? description;
   final String userId;
   final DateTime updatedAt;
   final DateTime createdAt;
   const WorkoutData({
     required this.id,
     required this.name,
-    required this.description,
+    this.description,
     required this.userId,
     required this.updatedAt,
     required this.createdAt,
@@ -1677,7 +1675,9 @@ class WorkoutData extends DataClass implements Insertable<WorkoutData> {
     final map = <String, Expression>{};
     map['id'] = Variable<String>(id);
     map['name'] = Variable<String>(name);
-    map['description'] = Variable<String>(description);
+    if (!nullToAbsent || description != null) {
+      map['description'] = Variable<String>(description);
+    }
     map['user_id'] = Variable<String>(userId);
     map['updated_at'] = Variable<DateTime>(updatedAt);
     map['created_at'] = Variable<DateTime>(createdAt);
@@ -1688,7 +1688,9 @@ class WorkoutData extends DataClass implements Insertable<WorkoutData> {
     return WorkoutCompanion(
       id: Value(id),
       name: Value(name),
-      description: Value(description),
+      description: description == null && nullToAbsent
+          ? const Value.absent()
+          : Value(description),
       userId: Value(userId),
       updatedAt: Value(updatedAt),
       createdAt: Value(createdAt),
@@ -1703,7 +1705,7 @@ class WorkoutData extends DataClass implements Insertable<WorkoutData> {
     return WorkoutData(
       id: serializer.fromJson<String>(json['id']),
       name: serializer.fromJson<String>(json['name']),
-      description: serializer.fromJson<String>(json['description']),
+      description: serializer.fromJson<String?>(json['description']),
       userId: serializer.fromJson<String>(json['userId']),
       updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
       createdAt: serializer.fromJson<DateTime>(json['createdAt']),
@@ -1715,7 +1717,7 @@ class WorkoutData extends DataClass implements Insertable<WorkoutData> {
     return <String, dynamic>{
       'id': serializer.toJson<String>(id),
       'name': serializer.toJson<String>(name),
-      'description': serializer.toJson<String>(description),
+      'description': serializer.toJson<String?>(description),
       'userId': serializer.toJson<String>(userId),
       'updatedAt': serializer.toJson<DateTime>(updatedAt),
       'createdAt': serializer.toJson<DateTime>(createdAt),
@@ -1725,14 +1727,14 @@ class WorkoutData extends DataClass implements Insertable<WorkoutData> {
   WorkoutData copyWith({
     String? id,
     String? name,
-    String? description,
+    Value<String?> description = const Value.absent(),
     String? userId,
     DateTime? updatedAt,
     DateTime? createdAt,
   }) => WorkoutData(
     id: id ?? this.id,
     name: name ?? this.name,
-    description: description ?? this.description,
+    description: description.present ? description.value : this.description,
     userId: userId ?? this.userId,
     updatedAt: updatedAt ?? this.updatedAt,
     createdAt: createdAt ?? this.createdAt,
@@ -1781,7 +1783,7 @@ class WorkoutData extends DataClass implements Insertable<WorkoutData> {
 class WorkoutCompanion extends UpdateCompanion<WorkoutData> {
   final Value<String> id;
   final Value<String> name;
-  final Value<String> description;
+  final Value<String?> description;
   final Value<String> userId;
   final Value<DateTime> updatedAt;
   final Value<DateTime> createdAt;
@@ -1798,14 +1800,13 @@ class WorkoutCompanion extends UpdateCompanion<WorkoutData> {
   WorkoutCompanion.insert({
     required String id,
     required String name,
-    required String description,
+    this.description = const Value.absent(),
     required String userId,
     this.updatedAt = const Value.absent(),
     this.createdAt = const Value.absent(),
     this.rowid = const Value.absent(),
   }) : id = Value(id),
        name = Value(name),
-       description = Value(description),
        userId = Value(userId);
   static Insertable<WorkoutData> custom({
     Expression<String>? id,
@@ -1830,7 +1831,7 @@ class WorkoutCompanion extends UpdateCompanion<WorkoutData> {
   WorkoutCompanion copyWith({
     Value<String>? id,
     Value<String>? name,
-    Value<String>? description,
+    Value<String?>? description,
     Value<String>? userId,
     Value<DateTime>? updatedAt,
     Value<DateTime>? createdAt,
@@ -3195,7 +3196,7 @@ typedef $$WorkoutTableCreateCompanionBuilder =
     WorkoutCompanion Function({
       required String id,
       required String name,
-      required String description,
+      Value<String?> description,
       required String userId,
       Value<DateTime> updatedAt,
       Value<DateTime> createdAt,
@@ -3205,7 +3206,7 @@ typedef $$WorkoutTableUpdateCompanionBuilder =
     WorkoutCompanion Function({
       Value<String> id,
       Value<String> name,
-      Value<String> description,
+      Value<String?> description,
       Value<String> userId,
       Value<DateTime> updatedAt,
       Value<DateTime> createdAt,
@@ -3355,7 +3356,7 @@ class $$WorkoutTableTableManager
               ({
                 Value<String> id = const Value.absent(),
                 Value<String> name = const Value.absent(),
-                Value<String> description = const Value.absent(),
+                Value<String?> description = const Value.absent(),
                 Value<String> userId = const Value.absent(),
                 Value<DateTime> updatedAt = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
@@ -3373,7 +3374,7 @@ class $$WorkoutTableTableManager
               ({
                 required String id,
                 required String name,
-                required String description,
+                Value<String?> description = const Value.absent(),
                 required String userId,
                 Value<DateTime> updatedAt = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),

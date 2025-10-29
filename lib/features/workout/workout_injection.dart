@@ -1,4 +1,6 @@
 import 'package:get_it/get_it.dart';
+import 'package:uuid/uuid.dart';
+import '../auth/domain/repositories/auth_repository.dart';
 import 'data/datasources/database_workout_datasource.dart';
 import 'data/repository/workout_repository_impl.dart';
 import 'domain/repositories/workout_repository.dart';
@@ -12,6 +14,7 @@ class WorkoutInjection {
     // Data Sources
     serviceLocator.registerLazySingleton<DatabaseWorkoutDataSource>(
       () => DatabaseWorkoutDataSourceImpl(
+        uuid: serviceLocator<Uuid>(),
         database: serviceLocator<AppDatabase>(),
       ),
     );
@@ -28,7 +31,10 @@ class WorkoutInjection {
       () => GetWorkoutsUseCase(serviceLocator<WorkoutRepository>()),
     );
     serviceLocator.registerLazySingleton<CreateWorkoutUsecase>(
-      () => CreateWorkoutUsecase(serviceLocator<WorkoutRepository>()),
+      () => CreateWorkoutUsecase(
+        serviceLocator<WorkoutRepository>(),
+        serviceLocator<AuthRepository>(),
+      ),
     );
 
     // BLoC
