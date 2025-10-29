@@ -4,7 +4,7 @@ import 'workout_exercise_model.dart';
 class WorkoutModel {
   final String id;
   final String name;
-  final String description;
+  final String? description;
   final String userId;
   final DateTime updatedAt;
   final DateTime createdAt;
@@ -13,7 +13,7 @@ class WorkoutModel {
   WorkoutModel({
     required this.id,
     required this.name,
-    required this.description,
+    this.description,
     required this.userId,
     required this.updatedAt,
     required this.createdAt,

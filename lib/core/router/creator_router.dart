@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 import '../../features/exercise/presentation/pages/exercise_list_page.dart';
+import '../../features/workout/presentation/pages/workout_edit_page.dart';
 import '../../features/workout/presentation/pages/workout_list_page.dart';
 import '../presentation/page/creator_page.dart';
 
@@ -7,9 +8,13 @@ class CreatorRoutes {
   static const String creator = '/creator';
   static const String exerciseList = '${CreatorRoutes.creator}/${CreatorRoutes._exerciseListPath}';
   static const String workoutList = '${CreatorRoutes.creator}/${CreatorRoutes._workoutListPath}';
+  static const String workoutEdit = '${CreatorRoutes.workoutList}/:workoutId';
 
   static const String _exerciseListPath = 'exercise';
   static const String _workoutListPath = 'workout';
+  static const String _workoutEditPath = ':workoutId';
+
+  static String workoutEditPath(String workoutId) => '${CreatorRoutes.workoutList}/$workoutId';
 }
 
 class CreatorRouter {
@@ -34,6 +39,15 @@ class CreatorRouter {
             key: state.pageKey,
             child: const WorkoutListPage(),
           ),
+          routes: [
+            GoRoute(
+              path: CreatorRoutes._workoutEditPath,
+              pageBuilder: (context, state) => NoTransitionPage(
+                key: state.pageKey,
+                child: WorkoutEditPage(workoutId: state.pathParameters['workoutId']!),
+              ),
+            ),
+          ]
         ),
       ],
     ),

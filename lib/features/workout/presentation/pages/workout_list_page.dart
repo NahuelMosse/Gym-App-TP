@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../core/presentation/widgets/main_navigation.dart';
-import '../widgets/workout_list.dart';
+import '../router/workout_list_router.dart';
 
 class WorkoutListPage extends StatefulWidget {
   const WorkoutListPage({super.key});
@@ -17,7 +17,7 @@ class _WorkoutListPageState extends State<WorkoutListPage> {
       body: Center(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: WorkoutList(),
+          child: WorkoutListRouter(),
         ),
       ),
       bottomNavigationBar: const MainNavigation(),

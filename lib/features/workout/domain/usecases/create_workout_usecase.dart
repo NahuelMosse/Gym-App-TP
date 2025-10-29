@@ -1,12 +1,19 @@
-import '../../data/models/workout_model.dart';
+import '../../../auth/domain/repositories/auth_repository.dart';
 import '../repositories/workout_repository.dart';
 
 class CreateWorkoutUsecase {
   final WorkoutRepository repository;
+  final AuthRepository authRepository;
 
-  CreateWorkoutUsecase(this.repository);
+  CreateWorkoutUsecase(this.repository, this.authRepository);
 
-  Future<void> call(WorkoutModel workout) async {
-    await repository.createWorkout(workout);
+  Future<String> call() async {
+    final user = await authRepository.getCurrentUser();
+
+    final workoutId = await repository.createWorkout(
+      userId: user!.id,
+    );
+
+    return workoutId;
   }
 }

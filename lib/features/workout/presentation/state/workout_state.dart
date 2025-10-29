@@ -28,3 +28,12 @@ class WorkoutError extends WorkoutState {
   @override
   List<Object> get props => [exception];
 }
+
+class WorkoutCreated extends WorkoutState {
+  final String workoutId;
+
+  const WorkoutCreated(this.workoutId);
+
+  @override
+  List<Object> get props => [workoutId];
+}

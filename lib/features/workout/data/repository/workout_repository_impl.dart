@@ -2,7 +2,6 @@ import '../../../../core/errors/exception_mapper.dart';
 import '../../domain/entities/workout.dart';
 import '../../domain/repositories/workout_repository.dart';
 import '../datasources/database_workout_datasource.dart';
-import '../models/workout_model.dart';
 
 class WorkoutRepositoryImpl implements WorkoutRepository {
   final DatabaseWorkoutDataSource databaseDataSource;
@@ -21,9 +20,14 @@ class WorkoutRepositoryImpl implements WorkoutRepository {
   }
 
   @override
-  Future<void> createWorkout(WorkoutModel workout) async {
+  Future<String> createWorkout({ required String userId }) async {
     try {
-      await databaseDataSource.insertWorkout(workout);
+      final workoutId = await databaseDataSource.insertWorkout(
+        name: 'Workout',
+        userId: userId,
+      );
+
+      return workoutId;
     } catch (e) {
       throw mapExceptionToDomain(e);
     }
