@@ -8,3 +8,12 @@ abstract class WorkoutEvent extends Equatable {
 }
 
 class LoadWorkoutsEvent extends WorkoutEvent {}
+
+class CreateWorkoutEvent extends WorkoutEvent {
+  final WorkoutModel workout;
+
+  const CreateWorkoutEvent(this.workout);
+
+  @override
+  List<Object> get props => [workout];
+}
