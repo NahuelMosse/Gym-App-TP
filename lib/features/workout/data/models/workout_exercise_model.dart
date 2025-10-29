@@ -6,8 +6,8 @@ class WorkoutExerciseModel {
   final String id;
   final String metodo;
   final int order;
-  final int exerciseId;
-  final int workoutId;
+  final String exerciseId;
+  final String workoutId;
   final DateTime updatedAt;
   final DateTime createdAt;
   final ExerciseModel? exercise;
