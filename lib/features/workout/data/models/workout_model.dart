@@ -1,4 +1,5 @@
 import '../../domain/entities/workout.dart';
+import 'workout_exercise_model.dart';
 
 class WorkoutModel {
   final String id;
@@ -7,6 +8,7 @@ class WorkoutModel {
   final String userId;
   final DateTime updatedAt;
   final DateTime createdAt;
+  final List<WorkoutExerciseModel>? workoutExercises;
 
   WorkoutModel({
     required this.id,
@@ -15,6 +17,7 @@ class WorkoutModel {
     required this.userId,
     required this.updatedAt,
     required this.createdAt,
+    this.workoutExercises,
   });
 
   factory WorkoutModel.fromJson(Map<String, dynamic> json) {
@@ -25,6 +28,11 @@ class WorkoutModel {
       userId: json['userId'],
       updatedAt: DateTime.parse(json['updatedAt']),
       createdAt: DateTime.parse(json['createdAt']),
+      workoutExercises: json['workoutExercises'] != null
+          ? (json['workoutExercises'] as List)
+                .map((e) => WorkoutExerciseModel.fromJson(e))
+                .toList()
+          : null,
     );
   }
 
@@ -36,6 +44,9 @@ class WorkoutModel {
       userId: entity.userId,
       updatedAt: entity.updatedAt,
       createdAt: entity.createdAt,
+      workoutExercises: entity.workoutExercises
+          ?.map((e) => WorkoutExerciseModel.fromEntity(e))
+          .toList(),
     );
   }
 
@@ -47,6 +58,8 @@ class WorkoutModel {
       'userId': userId,
       'updatedAt': updatedAt.toIso8601String(),
       'createdAt': createdAt.toIso8601String(),
+      if (workoutExercises != null)
+        'workoutExercises': workoutExercises!.map((e) => e.toJson()).toList(),
     };
   }
 
@@ -58,6 +71,7 @@ class WorkoutModel {
       userId: userId,
       updatedAt: updatedAt,
       createdAt: createdAt,
+      workoutExercises: workoutExercises?.map((e) => e.toEntity()).toList(),
     );
   }
 }

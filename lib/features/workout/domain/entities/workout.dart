@@ -1,3 +1,5 @@
+import 'workout_exercise.dart';
+
 class Workout {
   final String id;
   final String name;
@@ -6,6 +8,8 @@ class Workout {
   final DateTime updatedAt;
   final DateTime createdAt;
 
+  final List<WorkoutExercise>? workoutExercises;
+
   Workout({
     required this.id,
     required this.name,
@@ -13,6 +17,6 @@ class Workout {
     required this.userId,
     required this.updatedAt,
     required this.createdAt,
+    this.workoutExercises,
   });
 }
-
