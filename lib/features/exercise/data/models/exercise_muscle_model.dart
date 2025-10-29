@@ -1,4 +1,5 @@
 import '../../domain/entities/exercise_muscle.dart';
+import 'exercise_model.dart';
 import 'muscle_model.dart';
 
 class ExerciseMuscleModel {
@@ -8,6 +9,7 @@ class ExerciseMuscleModel {
   final DateTime updatedAt;
   final DateTime createdAt;
   final MuscleModel? muscle;
+  final ExerciseModel? exercise;
 
   ExerciseMuscleModel({
     required this.id,
@@ -16,6 +18,7 @@ class ExerciseMuscleModel {
     required this.updatedAt,
     required this.createdAt,
     this.muscle,
+    this.exercise,
   });
 
   factory ExerciseMuscleModel.fromJson(Map<String, dynamic> json) {
@@ -27,6 +30,9 @@ class ExerciseMuscleModel {
       createdAt: DateTime.parse(json['createdAt']),
       muscle: json['muscle'] != null
           ? MuscleModel.fromJson(json['muscle'])
+          : null,
+      exercise: json['exercise'] != null
+          ? ExerciseModel.fromJson(json['exercise'])
           : null,
     );
   }
@@ -41,6 +47,9 @@ class ExerciseMuscleModel {
       muscle: entity.muscle != null
           ? MuscleModel.fromEntity(entity.muscle!)
           : null,
+      exercise: entity.exercise != null
+          ? ExerciseModel.fromEntity(entity.exercise!)
+          : null,
     );
   }
 
@@ -52,6 +61,7 @@ class ExerciseMuscleModel {
       'updatedAt': updatedAt.toIso8601String(),
       'createdAt': createdAt.toIso8601String(),
       if (muscle != null) 'muscle': muscle!.toJson(),
+      if (exercise != null) 'exercise': exercise!.toJson(),
     };
   }
 
@@ -63,6 +73,7 @@ class ExerciseMuscleModel {
       updatedAt: updatedAt,
       createdAt: createdAt,
       muscle: muscle?.toEntity(),
+      exercise: exercise?.toEntity(),
     );
   }
 }
