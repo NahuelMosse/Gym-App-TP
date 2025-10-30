@@ -37,23 +37,21 @@ class AppDatabase extends _$AppDatabase {
       // Migrations for V2
     }
   }
-}
 
-// LazyDatabase _openConnection() {
-//   return LazyDatabase(() async {
-//     final dbFolder = await getApplicationDocumentsDirectory();
-//     final file = File(join(dbFolder.path, AppConfig.dbName));
-//     return NativeDatabase(file);
-//   });
-// }
-
-LazyDatabase _openConnection() {
-  return LazyDatabase(() async {
+  Future<void> resetDatabase() async {
+    await close();
     final dbFolder = await getApplicationDocumentsDirectory();
     final file = File(join(dbFolder.path, AppConfig.dbName));
     if (await file.exists()) {
       await file.delete();
     }
+  }
+}
+
+LazyDatabase _openConnection() {
+  return LazyDatabase(() async {
+    final dbFolder = await getApplicationDocumentsDirectory();
+    final file = File(join(dbFolder.path, AppConfig.dbName));
     return NativeDatabase(file);
   });
 }
