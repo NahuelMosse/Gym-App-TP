@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:drift/drift.dart' as drift;
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import '../../../../core/database/app_database.dart';
 import '../../../../injection_container.dart';
 import '../../../internationalization/generated/translations.dart';
@@ -73,7 +74,11 @@ class _DbViewerState extends State<DbViewer> {
 
     if (shouldReset == true && mounted) {
       try {
-        await _db.resetDatabase();
+          await _db.resetDatabase();
+          await serviceLocator.reset();
+          await initializeDependencies();
+          // ignore: use_build_context_synchronously
+          Phoenix.rebirth(context);
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(

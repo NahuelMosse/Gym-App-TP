@@ -178,7 +178,7 @@ class TranslationsEs extends Translations {
 
   @override
   String get resetDatabaseConfirm =>
-      '¿Estás seguro de que quieres eliminar todos los datos?\n\nEsta acción no se puede deshacer. Deberás reiniciar la app.';
+      '¿Estás seguro de que quieres eliminar todos los datos?\n\nEsta acción no se puede deshacer. La app se reiniciará automáticamente.';
 
   @override
   String get cancel => 'Cancelar';

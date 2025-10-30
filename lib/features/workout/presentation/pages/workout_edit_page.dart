@@ -17,8 +17,8 @@ class _WorkoutEditPageState extends State<WorkoutEditPage> {
   @override
   void initState() {
     super.initState();
-    // TODO: Cargar el workout desde el BLoC usando widget.workoutId
-    // Por ahora, valores de ejemplo
+    // TODO: Load the workout from the BLoC using widget.workoutId
+    // For now, example values
     _nameController.text = 'Workout Name';
     _descriptionController.text = '';
   }
@@ -41,7 +41,7 @@ class _WorkoutEditPageState extends State<WorkoutEditPage> {
           IconButton(
             icon: const Icon(Icons.check),
             onPressed: () {
-              // TODO: Guardar cambios
+              // TODO: Save changes
             },
           ),
         ],
@@ -51,7 +51,7 @@ class _WorkoutEditPageState extends State<WorkoutEditPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Campo de nombre
+            // Name field
             TextField(
               controller: _nameController,
               style: Theme.of(context).textTheme.headlineMedium,
@@ -62,7 +62,7 @@ class _WorkoutEditPageState extends State<WorkoutEditPage> {
             ),
             const SizedBox(height: 16),
             
-            // Campo de descripción
+            // Description field
             TextField(
               controller: _descriptionController,
               maxLines: null,
@@ -80,7 +80,7 @@ class _WorkoutEditPageState extends State<WorkoutEditPage> {
             const SizedBox(height: 24),
             const Divider(),
             
-            // Aquí irá la lista de ejercicios en el futuro
+            // Exercise list will go here in the future
             const Expanded(
               child: Center(
                 child: Text('Exercise list will go here'),

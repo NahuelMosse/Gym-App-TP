@@ -20,7 +20,7 @@ class _WorkoutListPageState extends State<WorkoutListPage> {
       body: Center(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: WorkoutListRouter(),
+          child: const WorkoutListRouter(),
         ),
       ),
       bottomNavigationBar: const MainNavigation(),

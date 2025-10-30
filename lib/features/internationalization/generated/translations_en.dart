@@ -176,7 +176,7 @@ class TranslationsEn extends Translations {
 
   @override
   String get resetDatabaseConfirm =>
-      'Are you sure you want to delete all data?\n\nThis action cannot be undone. You will need to restart the app.';
+      'Are you sure you want to delete all data?\n\nThis action cannot be undone. The app will restart automatically.';
 
   @override
   String get cancel => 'Cancel';

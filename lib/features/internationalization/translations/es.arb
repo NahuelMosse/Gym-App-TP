@@ -60,7 +60,7 @@
   "view": "Ver",
   "databaseViewer": "Visor de Base de Datos",
   "resetDatabase": "Reiniciar Base de Datos",
-  "resetDatabaseConfirm": "¿Estás seguro de que quieres eliminar todos los datos?\n\nEsta acción no se puede deshacer. Deberás reiniciar la app.",
+  "resetDatabaseConfirm": "¿Estás seguro de que quieres eliminar todos los datos?\n\nEsta acción no se puede deshacer. La app se reiniciará automáticamente.",
   "cancel": "Cancelar",
   "reset": "Reiniciar",
   "databaseResetSuccess": "¡Base de datos reiniciada! Por favor reinicia la app.",
