@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:drift/drift.dart' as drift;
-import '../database/app_database.dart';
-import '../../injection_container.dart';
+import '../../../../core/database/app_database.dart';
+import '../../../../injection_container.dart';
 
 class DbViewer extends StatefulWidget {
   const DbViewer({super.key});
@@ -46,6 +46,55 @@ class _DbViewerState extends State<DbViewer> {
     }
   }
 
+  Future<void> _resetDatabase() async {
+    final shouldReset = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Reset Database'),
+        content: const Text(
+          'Are you sure you want to delete all data?\n\n'
+          'This action cannot be undone. You will need to restart the app.',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context, true),
+            style: TextButton.styleFrom(
+              foregroundColor: Theme.of(context).colorScheme.error,
+            ),
+            child: const Text('Reset'),
+          ),
+        ],
+      ),
+    );
+
+    if (shouldReset == true && mounted) {
+      try {
+        await _db.resetDatabase();
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Database reset! Please restart the app.'),
+              duration: Duration(seconds: 5),
+            ),
+          );
+        }
+      } catch (e) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Error resetting database: $e'),
+              backgroundColor: Theme.of(context).colorScheme.error,
+            ),
+          );
+        }
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,6 +104,11 @@ class _DbViewerState extends State<DbViewer> {
           IconButton(
             icon: const Icon(Icons.refresh),
             onPressed: _loadTableData,
+          ),
+          IconButton(
+            icon: const Icon(Icons.delete_forever),
+            tooltip: 'Reset Database',
+            onPressed: _resetDatabase,
           ),
         ],
       ),
