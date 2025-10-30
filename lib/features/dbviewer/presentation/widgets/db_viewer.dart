@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:drift/drift.dart' as drift;
 import '../../../../core/database/app_database.dart';
 import '../../../../injection_container.dart';
+import '../../../internationalization/generated/translations.dart';
 
 class DbViewer extends StatefulWidget {
   const DbViewer({super.key});
@@ -47,25 +48,24 @@ class _DbViewerState extends State<DbViewer> {
   }
 
   Future<void> _resetDatabase() async {
+    final translations = Translations.of(context);
+    
     final shouldReset = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Reset Database'),
-        content: const Text(
-          'Are you sure you want to delete all data?\n\n'
-          'This action cannot be undone. You will need to restart the app.',
-        ),
+        title: Text(translations.resetDatabase),
+        content: Text(translations.resetDatabaseConfirm),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const Text('Cancel'),
+            child: Text(translations.cancel),
           ),
           TextButton(
             onPressed: () => Navigator.pop(context, true),
             style: TextButton.styleFrom(
               foregroundColor: Theme.of(context).colorScheme.error,
             ),
-            child: const Text('Reset'),
+            child: Text(translations.reset),
           ),
         ],
       ),
@@ -76,9 +76,9 @@ class _DbViewerState extends State<DbViewer> {
         await _db.resetDatabase();
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Database reset! Please restart the app.'),
-              duration: Duration(seconds: 5),
+            SnackBar(
+              content: Text(translations.databaseResetSuccess),
+              duration: const Duration(seconds: 5),
             ),
           );
         }
@@ -86,7 +86,7 @@ class _DbViewerState extends State<DbViewer> {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text('Error resetting database: $e'),
+              content: Text('${translations.error}: $e'),
               backgroundColor: Theme.of(context).colorScheme.error,
             ),
           );
@@ -97,9 +97,11 @@ class _DbViewerState extends State<DbViewer> {
 
   @override
   Widget build(BuildContext context) {
+    final translations = Translations.of(context);
+    
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Database Viewer'),
+        title: Text(translations.databaseViewer),
         actions: [
           IconButton(
             icon: const Icon(Icons.refresh),
@@ -107,7 +109,7 @@ class _DbViewerState extends State<DbViewer> {
           ),
           IconButton(
             icon: const Icon(Icons.delete_forever),
-            tooltip: 'Reset Database',
+            tooltip: translations.resetDatabase,
             onPressed: _resetDatabase,
           ),
         ],
@@ -161,7 +163,7 @@ class _DbViewerState extends State<DbViewer> {
                 ),
                 Expanded(
                   child: _loading
-                      ? const Center(child: CircularProgressIndicator())
+                      ? Center(child: Text(translations.loading))
                       : _tableData.isEmpty
                           ? Center(
                               child: Column(
@@ -174,7 +176,7 @@ class _DbViewerState extends State<DbViewer> {
                                   ),
                                   const SizedBox(height: 16),
                                   Text(
-                                    'No data in ${_tables[_selectedTableIndex].actualTableName}',
+                                    '${translations.noData} - ${_tables[_selectedTableIndex].actualTableName}',
                                     style: TextStyle(color: Colors.grey.shade600),
                                   ),
                                 ],

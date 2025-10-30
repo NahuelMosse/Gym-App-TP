@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../internationalization/generated/translations.dart';
 
 class WorkoutEditPage extends StatefulWidget {
   final String workoutId;
@@ -31,9 +32,11 @@ class _WorkoutEditPageState extends State<WorkoutEditPage> {
 
   @override
   Widget build(BuildContext context) {
+    final translations = Translations.of(context);
+    
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Edit Workout'),
+        title: Text(translations.workoutEditTitle),
         actions: [
           IconButton(
             icon: const Icon(Icons.check),
@@ -52,8 +55,8 @@ class _WorkoutEditPageState extends State<WorkoutEditPage> {
             TextField(
               controller: _nameController,
               style: Theme.of(context).textTheme.headlineMedium,
-              decoration: const InputDecoration(
-                hintText: 'Workout name',
+              decoration: InputDecoration(
+                hintText: translations.workoutNameHint,
                 border: InputBorder.none,
               ),
             ),
@@ -65,7 +68,7 @@ class _WorkoutEditPageState extends State<WorkoutEditPage> {
               maxLines: null,
               keyboardType: TextInputType.multiline,
               decoration: InputDecoration(
-                hintText: 'Add description',
+                hintText: translations.workoutDescriptionHint,
                 hintStyle: TextStyle(
                   color: Theme.of(context).hintColor,
                   fontStyle: FontStyle.italic,
