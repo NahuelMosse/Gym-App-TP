@@ -126,6 +126,12 @@ class TranslationsEs extends Translations {
   String get exercisesButton => 'Ejercicios';
 
   @override
+  String get exerciseListTitle => 'Ejercicios';
+
+  @override
+  String get workoutListTitle => 'Entrenamientos';
+
+  @override
   String get trainingDaysButton => 'Días de Entrenamiento';
 
   @override

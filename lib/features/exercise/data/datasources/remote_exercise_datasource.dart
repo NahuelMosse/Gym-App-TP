@@ -15,7 +15,7 @@ class RemoteExerciseDataSourceImpl implements RemoteExerciseDataSource {
   @override
   Future<ExerciseDataResponse> fetchExercises() async {
     // Simulate fetching data from a backend API
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 0));
 
     final muscles = [
       MuscleModel(
