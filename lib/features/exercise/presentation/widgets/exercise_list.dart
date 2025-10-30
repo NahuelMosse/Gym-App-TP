@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../injection_container.dart';
+import '../../../internationalization/generated/translations.dart';
 import '../state/exercise_bloc.dart';
 import 'exercise_card.dart';
 
@@ -9,6 +10,8 @@ class ExerciseList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final translations = Translations.of(context);
+    
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -22,12 +25,12 @@ class ExerciseList extends StatelessWidget {
             case ExerciseLoading():
               return const Center(child: CircularProgressIndicator());
             case ExerciseError():
-              return Center(child: Text('Error: ${state.exception}'));
+              return Center(child: Text('${translations.error}: ${state.exception}'));
             case ExerciseLoaded():
               final exercises = state.exercises;
 
               if (exercises.isEmpty) {
-                return const Center(child: Text('No exercises found.'));
+                return Center(child: Text(translations.noData));
               }
 
               return SizedBox(
@@ -40,7 +43,7 @@ class ExerciseList extends StatelessWidget {
                 ),
               );
             default:
-              return const Center(child: Text('Please load exercises.'));
+              return Center(child: Text(translations.pleaseLoadExercises));
           }
         },
       ),

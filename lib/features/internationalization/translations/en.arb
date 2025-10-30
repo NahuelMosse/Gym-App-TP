@@ -50,11 +50,26 @@
   "exercisesButton": "Exercises",
   "exerciseListTitle": "Exercises",
   "workoutListTitle": "Workouts",
+  "workoutEditTitle": "Edit Workout",
+  "workoutNameHint": "Workout name",
+  "workoutDescriptionHint": "Add description",
+  "error": "Error",
+  "loadWorkouts": "Please load workouts",
+  "pleaseLoadExercises": "Please load exercises",
   "trainingDaysButton": "Training Days",
   "routinesButton": "Routines",
   "routinesButtonS": "Microcycles",
   "advRoutinesButton": "Advanced Routines",
   "advRoutinesButtonS": "Mesocycles & Macrocycles",
 
-  "profilePage": "Profile page"
+  "profilePage": "Profile Page",
+  
+  "view": "View",
+  "databaseViewer": "Database Viewer",
+  "resetDatabase": "Reset Database",
+  "resetDatabaseConfirm": "Are you sure you want to delete all data?\n\nThis action cannot be undone. You will need to restart the app.",
+  "cancel": "Cancel",
+  "reset": "Reset",
+  "databaseResetSuccess": "Database reset! Please restart the app.",
+  "noData": "No data"
 }

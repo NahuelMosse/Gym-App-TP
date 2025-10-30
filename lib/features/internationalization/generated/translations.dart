@@ -332,6 +332,42 @@ abstract class Translations {
   /// **'Workouts'**
   String get workoutListTitle;
 
+  /// No description provided for @workoutEditTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Workout'**
+  String get workoutEditTitle;
+
+  /// No description provided for @workoutNameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Workout name'**
+  String get workoutNameHint;
+
+  /// No description provided for @workoutDescriptionHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Add description'**
+  String get workoutDescriptionHint;
+
+  /// No description provided for @error.
+  ///
+  /// In en, this message translates to:
+  /// **'Error'**
+  String get error;
+
+  /// No description provided for @loadWorkouts.
+  ///
+  /// In en, this message translates to:
+  /// **'Please load workouts'**
+  String get loadWorkouts;
+
+  /// No description provided for @pleaseLoadExercises.
+  ///
+  /// In en, this message translates to:
+  /// **'Please load exercises'**
+  String get pleaseLoadExercises;
+
   /// No description provided for @trainingDaysButton.
   ///
   /// In en, this message translates to:
@@ -365,8 +401,56 @@ abstract class Translations {
   /// No description provided for @profilePage.
   ///
   /// In en, this message translates to:
-  /// **'Profile page'**
+  /// **'Profile Page'**
   String get profilePage;
+
+  /// No description provided for @view.
+  ///
+  /// In en, this message translates to:
+  /// **'View'**
+  String get view;
+
+  /// No description provided for @databaseViewer.
+  ///
+  /// In en, this message translates to:
+  /// **'Database Viewer'**
+  String get databaseViewer;
+
+  /// No description provided for @resetDatabase.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset Database'**
+  String get resetDatabase;
+
+  /// No description provided for @resetDatabaseConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete all data?\n\nThis action cannot be undone. You will need to restart the app.'**
+  String get resetDatabaseConfirm;
+
+  /// No description provided for @cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
+  /// No description provided for @reset.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset'**
+  String get reset;
+
+  /// No description provided for @databaseResetSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Database reset! Please restart the app.'**
+  String get databaseResetSuccess;
+
+  /// No description provided for @noData.
+  ///
+  /// In en, this message translates to:
+  /// **'No data'**
+  String get noData;
 }
 
 class _TranslationsDelegate extends LocalizationsDelegate<Translations> {

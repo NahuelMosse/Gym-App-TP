@@ -130,6 +130,24 @@ class TranslationsEn extends Translations {
   String get workoutListTitle => 'Workouts';
 
   @override
+  String get workoutEditTitle => 'Edit Workout';
+
+  @override
+  String get workoutNameHint => 'Workout name';
+
+  @override
+  String get workoutDescriptionHint => 'Add description';
+
+  @override
+  String get error => 'Error';
+
+  @override
+  String get loadWorkouts => 'Please load workouts';
+
+  @override
+  String get pleaseLoadExercises => 'Please load exercises';
+
+  @override
   String get trainingDaysButton => 'Training Days';
 
   @override
@@ -145,5 +163,30 @@ class TranslationsEn extends Translations {
   String get advRoutinesButtonS => 'Mesocycles & Macrocycles';
 
   @override
-  String get profilePage => 'Profile page';
+  String get profilePage => 'Profile Page';
+
+  @override
+  String get view => 'View';
+
+  @override
+  String get databaseViewer => 'Database Viewer';
+
+  @override
+  String get resetDatabase => 'Reset Database';
+
+  @override
+  String get resetDatabaseConfirm =>
+      'Are you sure you want to delete all data?\n\nThis action cannot be undone. You will need to restart the app.';
+
+  @override
+  String get cancel => 'Cancel';
+
+  @override
+  String get reset => 'Reset';
+
+  @override
+  String get databaseResetSuccess => 'Database reset! Please restart the app.';
+
+  @override
+  String get noData => 'No data';
 }
