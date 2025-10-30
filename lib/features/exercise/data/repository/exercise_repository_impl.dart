@@ -23,7 +23,8 @@ class ExerciseRepositoryImpl implements ExerciseRepository {
       }
 
       await refreshExercisesFromBackend();
-      return getExercises();
+      final refreshedExercises = await databaseDataSource.fetchExercises();
+      return refreshedExercises.map((e) => e.toEntity()).toList();
     } catch (e) {
       throw mapExceptionToDomain(e);
     }

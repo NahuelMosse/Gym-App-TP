@@ -18,7 +18,7 @@ class DetailCard extends StatelessWidget {
         height: 170,
         width: double.infinity,
         padding: const EdgeInsets.all(18),
-        child: child
+        child: child,
       ),
     );
 

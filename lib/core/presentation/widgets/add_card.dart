@@ -3,9 +3,9 @@ import '../../theme/app_theme.dart';
 import 'detail_card.dart';
 
 class AddCard extends StatelessWidget {
-  final VoidCallback? onTap;
+  final VoidCallback onTap;
 
-  const AddCard({super.key, this.onTap});
+  const AddCard({super.key, required this.onTap});
 
   @override
   Widget build(BuildContext context) {

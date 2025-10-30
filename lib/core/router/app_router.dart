@@ -18,7 +18,7 @@ class AppRoutes {
   static const List<String> protectedRoutes = [
     home,
     profile,
-    creator
+    creator,
   ];
 }
 

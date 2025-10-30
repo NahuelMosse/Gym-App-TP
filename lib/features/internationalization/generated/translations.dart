@@ -320,6 +320,18 @@ abstract class Translations {
   /// **'Exercises'**
   String get exercisesButton;
 
+  /// No description provided for @exerciseListTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Exercises'**
+  String get exerciseListTitle;
+
+  /// No description provided for @workoutListTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Workouts'**
+  String get workoutListTitle;
+
   /// No description provided for @trainingDaysButton.
   ///
   /// In en, this message translates to:

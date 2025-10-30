@@ -48,6 +48,8 @@
 
   "creatorPage": "Creator Page",
   "exercisesButton": "Exercises",
+  "exerciseListTitle": "Exercises",
+  "workoutListTitle": "Workouts",
   "trainingDaysButton": "Training Days",
   "routinesButton": "Routines",
   "routinesButtonS": "Microcycles",
