@@ -10,22 +10,21 @@ class WorkoutList extends StatelessWidget {
 
   const WorkoutList({super.key, required this.workouts});
 
+  void _createWorkout(BuildContext context) {
+    context.read<WorkoutBloc>().add(
+      CreateWorkoutEvent(),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-
-    void createWorkout() {
-      context.read<WorkoutBloc>().add(
-        CreateWorkoutEvent(),
-      );
-    }
-
     if (workouts.isEmpty) {
       return SizedBox(
         height: MediaQuery.of(context).size.height,
         child: ListView(
           children: [
             AddCard(
-              onTap: () { createWorkout(); },
+              onTap: () => _createWorkout(context),
             ),
           ],
         ),
@@ -39,10 +38,12 @@ class WorkoutList extends StatelessWidget {
         itemBuilder: (context, index) {
           if (index == workouts.length) {
             return AddCard(
-              onTap: () { createWorkout(); },
+              onTap: () => _createWorkout(context),
             );
           }
-          return WorkoutCard(workout: workouts[index]);
+          return WorkoutCard(
+            workout: workouts[index],
+          );
         },
       ),
     );

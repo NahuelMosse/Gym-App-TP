@@ -425,7 +425,7 @@ abstract class Translations {
   /// No description provided for @resetDatabaseConfirm.
   ///
   /// In en, this message translates to:
-  /// **'Are you sure you want to delete all data?\n\nThis action cannot be undone. You will need to restart the app.'**
+  /// **'Are you sure you want to delete all data?\n\nThis action cannot be undone. The app will restart automatically.'**
   String get resetDatabaseConfirm;
 
   /// No description provided for @cancel.
