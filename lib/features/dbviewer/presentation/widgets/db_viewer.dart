@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:drift/drift.dart' as drift;
-import '../database/app_database.dart';
-import '../../injection_container.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
+import '../../../../core/database/app_database.dart';
+import '../../../../injection_container.dart';
+import '../../../internationalization/generated/translations.dart';
 
 class DbViewer extends StatefulWidget {
   const DbViewer({super.key});
@@ -46,15 +48,74 @@ class _DbViewerState extends State<DbViewer> {
     }
   }
 
+  Future<void> _resetDatabase() async {
+    final translations = Translations.of(context);
+    
+    final shouldReset = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(translations.resetDatabase),
+        content: Text(translations.resetDatabaseConfirm),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: Text(translations.cancel),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context, true),
+            style: TextButton.styleFrom(
+              foregroundColor: Theme.of(context).colorScheme.error,
+            ),
+            child: Text(translations.reset),
+          ),
+        ],
+      ),
+    );
+
+    if (shouldReset == true && mounted) {
+      try {
+          await _db.resetDatabase();
+          await serviceLocator.reset();
+          await initializeDependencies();
+          // ignore: use_build_context_synchronously
+          Phoenix.rebirth(context);
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(translations.databaseResetSuccess),
+              duration: const Duration(seconds: 5),
+            ),
+          );
+        }
+      } catch (e) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('${translations.error}: $e'),
+              backgroundColor: Theme.of(context).colorScheme.error,
+            ),
+          );
+        }
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final translations = Translations.of(context);
+    
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Database Viewer'),
+        title: Text(translations.databaseViewer),
         actions: [
           IconButton(
             icon: const Icon(Icons.refresh),
             onPressed: _loadTableData,
+          ),
+          IconButton(
+            icon: const Icon(Icons.delete_forever),
+            tooltip: translations.resetDatabase,
+            onPressed: _resetDatabase,
           ),
         ],
       ),
@@ -107,7 +168,7 @@ class _DbViewerState extends State<DbViewer> {
                 ),
                 Expanded(
                   child: _loading
-                      ? const Center(child: CircularProgressIndicator())
+                      ? Center(child: Text(translations.loading))
                       : _tableData.isEmpty
                           ? Center(
                               child: Column(
@@ -120,7 +181,7 @@ class _DbViewerState extends State<DbViewer> {
                                   ),
                                   const SizedBox(height: 16),
                                   Text(
-                                    'No data in ${_tables[_selectedTableIndex].actualTableName}',
+                                    '${translations.noData} - ${_tables[_selectedTableIndex].actualTableName}',
                                     style: TextStyle(color: Colors.grey.shade600),
                                   ),
                                 ],

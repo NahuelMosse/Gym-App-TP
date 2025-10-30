@@ -5,7 +5,7 @@ import '../../../features/auth/presentation/state/auth_bloc.dart';
 import '../../../features/auth/presentation/state/auth_event.dart';
 import '../../router/app_router.dart';
 import '../../../features/internationalization/generated/translations.dart';
-import '../../widgets/debug_db_viewer.dart';
+import '../../../features/dbviewer/presentation/widgets/debug_db_viewer.dart';
 import '../widgets/main_navigation.dart';
 
 class HomePage extends StatefulWidget {
