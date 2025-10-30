@@ -126,6 +126,30 @@ class TranslationsEs extends Translations {
   String get exercisesButton => 'Ejercicios';
 
   @override
+  String get exerciseListTitle => 'Ejercicios';
+
+  @override
+  String get workoutListTitle => 'Entrenamientos';
+
+  @override
+  String get workoutEditTitle => 'Editar Entrenamiento';
+
+  @override
+  String get workoutNameHint => 'Nombre del entrenamiento';
+
+  @override
+  String get workoutDescriptionHint => 'Agregar descripción';
+
+  @override
+  String get error => 'Error';
+
+  @override
+  String get loadWorkouts => 'Por favor carga los entrenamientos';
+
+  @override
+  String get pleaseLoadExercises => 'Por favor carga los ejercicios';
+
+  @override
   String get trainingDaysButton => 'Días de Entrenamiento';
 
   @override
@@ -142,4 +166,30 @@ class TranslationsEs extends Translations {
 
   @override
   String get profilePage => 'Página de perfil';
+
+  @override
+  String get view => 'Ver';
+
+  @override
+  String get databaseViewer => 'Visor de Base de Datos';
+
+  @override
+  String get resetDatabase => 'Reiniciar Base de Datos';
+
+  @override
+  String get resetDatabaseConfirm =>
+      '¿Estás seguro de que quieres eliminar todos los datos?\n\nEsta acción no se puede deshacer. La app se reiniciará automáticamente.';
+
+  @override
+  String get cancel => 'Cancelar';
+
+  @override
+  String get reset => 'Reiniciar';
+
+  @override
+  String get databaseResetSuccess =>
+      '¡Base de datos reiniciada! Por favor reinicia la app.';
+
+  @override
+  String get noData => 'Sin datos';
 }

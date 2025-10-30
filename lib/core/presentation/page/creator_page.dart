@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../../features/internationalization/generated/translations.dart';
-import '../../router/app_router.dart';
+import '../../router/creator_router.dart';
 import '../widgets/main_navigation.dart';
 import '../widgets/menu_button.dart';
 
@@ -26,14 +26,14 @@ class CreatorPageState extends State<CreatorPage> {
             MenuButton(
               title: translations.exercisesButton,
               onPressed: () {
-                context.push(AppRoutes.profile);
+                context.push(CreatorRoutes.exerciseList);
               },
             ),
             const SizedBox(height: 16),
             MenuButton(
               title: translations.trainingDaysButton,
               onPressed: () {
-                context.push(AppRoutes.profile);
+                context.push(CreatorRoutes.workoutList);
               },
             ),
             const SizedBox(height: 16),
@@ -41,7 +41,7 @@ class CreatorPageState extends State<CreatorPage> {
               title: translations.routinesButton,
               subtitle: translations.routinesButtonS,
               onPressed: () {
-                context.push(AppRoutes.profile);
+                // TODO
               },
             ),
             const SizedBox(height: 16),
@@ -49,7 +49,7 @@ class CreatorPageState extends State<CreatorPage> {
               title: translations.advRoutinesButton,
               subtitle: translations.advRoutinesButtonS,
               onPressed: () {
-                context.push(AppRoutes.profile);
+                // TODO
               },
             ),
           ],

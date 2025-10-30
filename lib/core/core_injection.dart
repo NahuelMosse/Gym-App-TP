@@ -2,6 +2,7 @@ import 'package:get_it/get_it.dart';
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:uuid/uuid.dart';
 import 'database/app_database.dart';
 import 'network/token_interceptor.dart';
 import 'shared/app_config.dart';
@@ -42,5 +43,7 @@ class CoreInjection {
     serviceLocator.registerSingleton<Dio>(dio);
 
     serviceLocator.registerLazySingleton<AppDatabase>(() => AppDatabase());
+
+    serviceLocator.registerLazySingleton<Uuid>(() => Uuid());
   }
 }
